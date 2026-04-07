@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config'
+import node from '@astrojs/node'
 
 import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
@@ -6,6 +7,7 @@ import sitemap from '@astrojs/sitemap'
 import icon from 'astro-icon'
 
 import { rehypeHeadingIds } from '@astrojs/markdown-remark'
+// ... rest of imports
 import rehypeExpressiveCode from 'rehype-expressive-code'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeKatex from 'rehype-katex'
@@ -19,11 +21,23 @@ import type { ExpressiveCodeTheme } from 'rehype-expressive-code'
 
 import tailwindcss from '@tailwindcss/vite'
 
+const isDocker = process.env.DEPLOY_TARGET === 'docker'
+
 export default defineConfig({
-  site: 'https://astro-erudite.vercel.app',
+  output: isDocker ? 'server' : 'static',
+  adapter: isDocker ? node({ mode: 'standalone' }) : undefined,
+  site: 'https://cloud1001.com',
   integrations: [mdx(), react(), sitemap(), icon()],
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      external: ['bun', '@tinacms/datalayer', 'tinacms-gitprovider-github', 'abstract-level']
+    },
+    build: {
+      rollupOptions: {
+        external: ['bun']
+      }
+    }
   },
   server: {
     port: 1234,

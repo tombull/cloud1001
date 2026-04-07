@@ -24,7 +24,7 @@ const authors = defineCollection({
     pronouns: z.string().optional(),
     avatar: z.url().or(z.string().startsWith('/')),
     bio: z.string().optional(),
-    mail: z.email().optional(),
+    mail: z.string().optional(),
     website: z.url().optional(),
     twitter: z.url().optional(),
     github: z.url().optional(),

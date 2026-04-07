@@ -10,4 +10,5 @@ pnpm-debug.log*
 .DS_Store
 .idea/
 teaser.pptx
-~$teaser.pptx
+~$teaser.pptxtina/__generated__/
+public/admin/
