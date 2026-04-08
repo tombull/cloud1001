@@ -1,0 +1,416 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'tertiary-fixed-dim': '#eb71ff',
+              'primary-container': '#00f4fe',
+              'on-secondary-fixed-variant': '#5a5c5c',
+              'on-tertiary-fixed-variant': '#650077',
+              secondary: '#e3e2e2',
+              'secondary-dim': '#d4d4d4',
+              'secondary-fixed-dim': '#d4d4d4',
+              'surface-container': '#1a1919',
+              outline: '#777575',
+              error: '#ff716c',
+              'on-tertiary': '#3c0048',
+              'on-error': '#490006',
+              'on-background': '#ffffff',
+              'outline-variant': '#494847',
+              'inverse-on-surface': '#565554',
+              'inverse-surface': '#fcf8f8',
+              'on-surface-variant': '#adaaaa',
+              tertiary: '#e966ff',
+              'on-secondary': '#515252',
+              'on-primary-fixed-variant': '#006266',
+              'surface-container-high': '#201f1f',
+              'surface-container-lowest': '#000000',
+              'on-secondary-container': '#d0d0d0',
+              'error-container': '#9f0519',
+              'on-secondary-fixed': '#3e3f40',
+              'on-tertiary-container': '#000000',
+              'error-dim': '#d7383b',
+              'on-primary-container': '#00575b',
+              'surface-dim': '#0e0e0e',
+              'surface-variant': '#262626',
+              'tertiary-dim': '#c500e6',
+              'on-error-container': '#ffa8a3',
+              'secondary-container': '#464747',
+              background: '#0e0e0e',
+              'on-primary': '#006165',
+              surface: '#0e0e0e',
+              'surface-bright': '#2c2c2c',
+              'tertiary-container': '#d501f9',
+              'tertiary-fixed': '#f189ff',
+              'secondary-fixed': '#e3e2e2',
+              'surface-tint': '#a1faff',
+              primary: '#a1faff',
+              'primary-fixed-dim': '#00e5ee',
+              'primary-fixed': '#00f4fe',
+              'primary-dim': '#00e5ee',
+              'surface-container-highest': '#262626',
+              'inverse-primary': '#006a6e',
+              'on-surface': '#ffffff',
+              'surface-container-low': '#131313',
+              'on-tertiary-fixed': '#2f0039',
+              'on-primary-fixed': '#004346',
+            },
+            borderRadius: {
+              DEFAULT: '0px',
+              lg: '0px',
+              xl: '0px',
+              full: '9999px',
+            },
+            fontFamily: {
+              headline: ['Space Grotesk'],
+              body: ['Space Grotesk'],
+              label: ['Space Grotesk'],
+            },
+          },
+        },
+      }
+    </script>
+    <style>
+      body {
+        background-color: #0e0e0e;
+        color: #ffffff;
+        font-family: 'Space Grotesk', sans-serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+      .psychedelic-glow {
+        text-shadow: 0 0 20px rgba(161, 250, 255, 0.4);
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #0e0e0e;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #a1faff;
+      }
+    </style>
+  </head>
+  <body
+    class="selection:bg-primary selection:text-on-primary-fixed overflow-x-hidden antialiased"
+  >
+    <!-- TopNavBar -->
+    <nav
+      class="fixed top-0 z-50 flex h-16 w-full max-w-full items-center justify-between rounded-none border-b border-[#a1faff]/15 bg-[#0e0e0e]/80 px-8 shadow-[0_0_40px_rgba(0,245,255,0.08)] backdrop-blur-xl"
+    >
+      <div
+        class="font-['Space_Grotesk'] text-xl font-bold tracking-tighter text-[#a1faff]"
+      >
+        CLOUD 1001
+      </div>
+      <div class="hidden items-center gap-8 md:flex">
+        <a
+          class="font-['Space_Grotesk'] text-sm tracking-[0.05em] text-[#adaaaa] uppercase transition-colors hover:text-[#ffffff]"
+          href="#"
+          >ARCHIVE</a
+        >
+        <a
+          class="font-['Space_Grotesk'] text-sm tracking-[0.05em] text-[#adaaaa] uppercase transition-colors hover:text-[#ffffff]"
+          href="#"
+          >ABOUT</a
+        >
+        <div
+          class="bg-surface-container-low border-outline-variant/20 flex items-center border px-3 py-1"
+        >
+          <span class="material-symbols-outlined mr-2 text-sm text-[#a1faff]"
+            >search</span
+          >
+          <span
+            class="text-on-surface-variant font-['Space_Grotesk'] text-xs tracking-[0.05em] uppercase"
+            >SEARCH_DB</span
+          >
+        </div>
+      </div>
+      <div class="md:hidden">
+        <span class="material-symbols-outlined text-[#a1faff]">menu</span>
+      </div>
+    </nav>
+    <main class="pt-16 pb-24">
+      <!-- Hero Section -->
+      <section class="relative flex h-[716px] w-full items-end overflow-hidden">
+        <img
+          alt="Surreal psychedelic landscape with colorful clouds, towers, and celestial bodies"
+          class="absolute inset-0 h-full w-full scale-110 object-cover opacity-80"
+          data-alt="A vibrant, intricate psychedelic dreamscape featuring layered colorful clouds, golden architectural spires, and hanging celestial spheres against a starry void"
+          src="https://lh3.googleusercontent.com/aida/ADBb0ugKqU8QHgJsfmK7Gejk7BskptQhqUBZlFIKcSG1SkIHQetwxWFZpSq9WGkKjGx0NoIGNZbrDLlEp-AAMZj9O14CbE9FxRDI7wh4m7VxQLJhGTebOpX_8TwCAVMz0NU7EA1b_PHsUDwYJT8nrMlh4DLmulUarz_kKVGUZlb1giYGJ0tLqmTJrCQxPpvMeZhS6TVxDPWRqPj3-J4H1ziLYbOa9yJIPiW7wwUOWghYUss1-ASbAYczYYvBoWndJy6W0LVINour0Q32"
+        />
+        <div
+          class="from-background absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
+        ></div>
+        <!-- Data-Strip -->
+        <div
+          class="bg-primary/10 border-primary/20 absolute bottom-0 flex w-full items-center justify-between border-t px-8 py-2"
+        >
+          <span
+            class="text-primary font-['Space_Grotesk'] text-[10px] tracking-[0.1em] uppercase"
+            >SECTOR_7G // PROTOCOL_STATIC</span
+          >
+          <span
+            class="text-primary font-['Space_Grotesk'] text-[10px] tracking-[0.1em] uppercase"
+            >COORD_LAT: 40.7128° N // LONG: 74.0060° W</span
+          >
+        </div>
+      </section>
+      <!-- Blog Content Container -->
+      <article class="mx-auto mt-16 max-w-2xl px-6 md:mt-24">
+        <header class="mb-16">
+          <div class="border-tertiary/30 mb-4 inline-block border px-3 py-1">
+            <span
+              class="text-tertiary font-['Space_Grotesk'] text-[10px] tracking-[0.2em] uppercase"
+              >TRANSMISSION_042</span
+            >
+          </div>
+          <h1
+            class="psychedelic-glow mb-8 text-5xl leading-none font-extrabold tracking-tighter italic md:text-7xl"
+          >
+            The Future of Static Blogs
+          </h1>
+          <div class="text-on-surface-variant flex items-center gap-6">
+            <div class="flex flex-col">
+              <span
+                class="font-['Space_Grotesk'] text-[10px] tracking-[0.1em] uppercase"
+                >AUTHOR</span
+              >
+              <span class="text-on-surface text-sm font-bold"
+                >NULL_OPERATOR</span
+              >
+            </div>
+            <div class="bg-outline-variant/30 h-8 w-px"></div>
+            <div class="flex flex-col">
+              <span
+                class="font-['Space_Grotesk'] text-[10px] tracking-[0.1em] uppercase"
+                >TIMESTAMP</span
+              >
+              <span class="text-on-surface text-sm font-bold"
+                >2024.11.08_14:32:01</span
+              >
+            </div>
+          </div>
+        </header>
+        <div class="bg-outline-variant/20 mb-16 h-px w-full"></div>
+        <section
+          class="text-on-surface-variant space-y-8 text-lg leading-relaxed"
+        >
+          <p>
+            The digital landscape is undergoing a violent collapse back to
+            simplicity. After a decade of bloated, JavaScript-heavy monoliths,
+            the
+            <span class="text-primary font-bold">CLOUD 1001</span> architecture
+            signals a return to the "Hard-Edged" web. Static sites are no longer
+            just pages; they are optimized data structures frozen in time.
+          </p>
+          <h2
+            class="text-on-surface border-primary mt-16 mb-4 border-l-4 pl-4 font-['Space_Grotesk'] text-2xl font-bold tracking-tight uppercase"
+          >
+            The Mathematical Precision of Content
+          </h2>
+          <p>
+            Every byte served must justify its existence in the void. By
+            leveraging edge computation and pre-rendered aesthetics, we remove
+            the friction of the server-client handshake. The terminal interface
+            is not a stylistic choice—it is a functional necessity for clarity.
+          </p>
+          <!-- Code Terminal -->
+          <div
+            class="bg-surface-container-low border-outline-variant/20 my-12 overflow-hidden rounded-none border"
+          >
+            <div
+              class="bg-surface-container-high border-outline-variant/20 flex items-center justify-between border-b px-4 py-2"
+            >
+              <div class="flex gap-2">
+                <div class="bg-error/50 h-2 w-2 rounded-full"></div>
+                <div class="bg-tertiary/50 h-2 w-2 rounded-full"></div>
+                <div class="bg-primary/50 h-2 w-2 rounded-full"></div>
+              </div>
+              <span
+                class="text-on-surface-variant font-['Space_Grotesk'] text-[10px] tracking-[0.1em] uppercase"
+                >terminal.sh</span
+              >
+            </div>
+            <div class="custom-scrollbar overflow-x-auto p-6 font-mono text-sm">
+              <div class="flex gap-4">
+                <span class="text-outline-variant">01</span>
+                <span class="text-primary-container">const</span>
+                <span class="text-on-surface">void_stream</span>
+                <span class="text-tertiary">=</span>
+                <span class="text-on-surface-variant">(content) =&gt; {</span>
+              </div>
+              <div class="flex gap-4">
+                <span class="text-outline-variant">02</span>
+                <span class="text-primary-container pl-4">return</span>
+                <span class="text-on-surface-variant"
+                  >content.map(data =&gt; ({</span
+                >
+              </div>
+              <div class="flex gap-4">
+                <span class="text-outline-variant">03</span>
+                <span class="text-on-surface pl-8">...data,</span>
+              </div>
+              <div class="flex gap-4">
+                <span class="text-outline-variant">04</span>
+                <span class="text-tertiary pl-8">entropy:</span>
+                <span class="text-on-surface">Math.random() * 0.0001</span>
+              </div>
+              <div class="flex gap-4">
+                <span class="text-outline-variant">05</span>
+                <span class="text-on-surface-variant pl-4">}));</span>
+              </div>
+              <div class="flex gap-4">
+                <span class="text-outline-variant">06</span>
+                <span class="text-on-surface-variant">};</span>
+              </div>
+              <div class="mt-4 flex animate-pulse gap-4">
+                <span class="text-outline-variant">07</span>
+                <span class="text-primary">_</span>
+              </div>
+            </div>
+          </div>
+          <p>
+            The "Glass &amp; Gradient" rule applied to these structures allows
+            for a psychedelic sci-fi aesthetic without sacrificing the rigid
+            performance of a terminal readout. We are building ghosts in the
+            machine—highly performant, visually dense, yet functionally empty
+            shells.
+          </p>
+          <h3
+            class="text-on-surface mt-12 mb-4 font-['Space_Grotesk'] text-xl font-bold tracking-tight uppercase"
+          >
+            Visual Boundaries and Negative Space
+          </h3>
+          <p>
+            Observe the use of
+            <span class="text-on-surface italic">Ghost Borders</span>. By
+            reducing opacity to 15%, we define space without creating a prison
+            for the content. The eye travels through tonal shifts rather than
+            hard lines. This is the editorial future: a synthesis of
+            high-density technical data and ethereal celestial imagery.
+          </p>
+          <div class="grid grid-cols-2 gap-4 py-8">
+            <div
+              class="bg-surface-container-high border-outline-variant/15 flex aspect-square flex-col items-center justify-center border p-8 text-center"
+            >
+              <span
+                class="material-symbols-outlined text-tertiary mb-4 text-4xl"
+                >fluid</span
+              >
+              <span
+                class="text-on-surface font-['Space_Grotesk'] text-xs tracking-[0.1em] uppercase"
+                >Fluid Logic</span
+              >
+            </div>
+            <div
+              class="bg-surface-container-low border-outline-variant/15 flex aspect-square flex-col items-center justify-center border p-8 text-center"
+            >
+              <span class="material-symbols-outlined text-primary mb-4 text-4xl"
+                >data_exploration</span
+              >
+              <span
+                class="text-on-surface font-['Space_Grotesk'] text-xs tracking-[0.1em] uppercase"
+                >Data Flow</span
+              >
+            </div>
+          </div>
+          <p>
+            As we move forward, the "Cloud 1001" will become the standard. It
+            rejects the soft, approachable web. It demands attention. It
+            requires the reader to sit within the void and contemplate the
+            mathematical beauty of the stream.
+          </p>
+        </section>
+        <div class="bg-outline-variant/20 mt-24 mb-12 h-px w-full"></div>
+        <!-- Author Bio -->
+        <footer
+          class="flex flex-col items-start gap-8 md:flex-row md:items-center"
+        >
+          <div
+            class="from-primary to-tertiary flex h-16 w-16 items-center justify-center bg-gradient-to-br"
+          >
+            <span
+              class="material-symbols-outlined text-on-primary-fixed text-3xl"
+              >token</span
+            >
+          </div>
+          <div class="flex-1">
+            <h4
+              class="text-on-surface mb-2 font-['Space_Grotesk'] text-sm font-bold tracking-widest uppercase"
+            >
+              SYSTEM_OPERATOR_00
+            </h4>
+            <p
+              class="text-on-surface-variant text-xs leading-relaxed tracking-wider uppercase"
+            >
+              A digital architect specializing in high-contrast technical
+              interfaces and minimalist psychedelic design systems. Currently
+              transmitting from the void.
+            </p>
+          </div>
+        </footer>
+      </article>
+    </main>
+    <!-- Footer -->
+    <footer
+      class="mt-auto flex w-full flex-col items-center justify-between border-t border-[#a1faff]/15 bg-[#0e0e0e] px-8 py-12 md:flex-row"
+    >
+      <div
+        class="mb-8 font-['Space_Grotesk'] text-lg font-black text-[#ffffff] md:mb-0"
+      >
+        CLOUD 1001
+      </div>
+      <div class="flex flex-col items-center gap-8 md:flex-row">
+        <div class="flex gap-12">
+          <a
+            class="font-['Space_Grotesk'] text-[10px] tracking-[0.1em] text-[#adaaaa] uppercase underline underline-offset-4 transition-opacity duration-500 hover:text-[#a1faff]"
+            href="#"
+            >TERMINAL</a
+          >
+          <a
+            class="font-['Space_Grotesk'] text-[10px] tracking-[0.1em] text-[#adaaaa] uppercase underline underline-offset-4 transition-opacity duration-500 hover:text-[#a1faff]"
+            href="#"
+            >DATA_STREAM</a
+          >
+          <a
+            class="font-['Space_Grotesk'] text-[10px] tracking-[0.1em] text-[#adaaaa] uppercase underline underline-offset-4 transition-opacity duration-500 hover:text-[#a1faff]"
+            href="#"
+            >SIGNAL</a
+          >
+        </div>
+        <div
+          class="mt-8 font-['Space_Grotesk'] text-[10px] tracking-[0.1em] text-[#adaaaa] uppercase md:mt-0"
+        >
+          ©2026 TOM BULL. ALL RIGHTS RESERVED.
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

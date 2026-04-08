@@ -28,15 +28,19 @@ export const NAV_LINKS: SocialLink[] = [
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
-    href: 'https://github.com/jktrn',
+    href: 'https://tombull.com',
+    label: 'Website',
+  },
+  {
+    href: 'https://github.com/tombull',
     label: 'GitHub',
   },
   {
-    href: 'https://twitter.com/enscry',
-    label: 'Twitter',
+    href: 'https://linkedin.com/in/tombull',
+    label: 'LinkedIn',
   },
   {
-    href: 'mailto:jason@enscribe.dev',
+    href: 'mailto:tom@cloud1001.com',
     label: 'Email',
   },
   {
