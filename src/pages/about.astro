@@ -5,43 +5,84 @@ import PageHead from '@/components/page-head.astro'
 import ProjectCard from '@/components/project-card.astro'
 import Layout from '@/layouts/layout.astro'
 import { getAllProjects } from '@/lib/data-utils'
+import { SITE } from '@/consts'
 
 const projects = await getAllProjects()
 ---
 
-<Layout class="max-w-3xl">
+<Layout class="px-4 py-12 max-w-3xl md:px-8">
   <PageHead slot="head" title="About" />
-  <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} />
 
-  <section>
-    <div class="min-w-full">
-      <div class="prose mb-8">
+  <div class="flex flex-col gap-y-10">
+    <div>
+      <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} />
+    </div>
+
+    <!-- About section -->
+    <section class="flex flex-col gap-y-6">
+      <div class="flex items-baseline gap-4">
+        <h1 class="text-3xl font-black uppercase tracking-tighter text-on-surface">
+          About
+        </h1>
+      </div>
+
+      <div class="prose">
         <p class="mt-0">
-          astro-erudite is an opinionated, unstyled static blogging template
-          that prioritizes simplicity and performance, built with <Link
-            href="https://astro.build"
-            external
-            underline>Astro</Link
-          >, <Link href="https://tailwindcss.com" external underline
-            >Tailwind</Link
-          >, and <Link href="https://ui.shadcn.com" external underline
-            >shadcn/ui</Link
-          >. It provides a clean foundation for your content while being
-          extremely easy to customize.
+          {SITE.title} is a technology blog by {SITE.author}.
+          Written at the intersection of cloud infrastructure, artificial intelligence,
+          and the systems that power modern software.
         </p>
         <p>
-          To learn more about the philosophy behind this template, check out the
-          following blog post: <Link
-            href="/blog/the-state-of-static-blogs"
-            underline>The State of Static Blogs in 2024</Link
-          >.
+          Articles cover hands-on engineering, architecture deep-dives,
+          and observations from the frontier of distributed systems and AI tooling.
         </p>
       </div>
+    </section>
 
-      <h2 class="mb-4 text-2xl font-medium">Example Projects Listing</h2>
-      <div class="flex flex-col gap-4">
-        {projects.map((project) => <ProjectCard project={project} />)}
-      </div>
-    </div>
-  </section>
+    <!-- Projects section -->
+    {
+      projects.length > 0 && (
+        <section class="flex flex-col gap-y-6">
+          <div class="flex items-baseline gap-4">
+            <h2 class="text-xs font-bold tracking-[0.2em] text-on-surface-variant uppercase">
+              Projects
+            </h2>
+            <span class="text-[10px] tracking-[0.1em] text-tertiary uppercase">
+              [{projects.length}]
+            </span>
+          </div>
+          <div class="flex flex-col gap-4">
+            {projects.map((project) => (
+              <ProjectCard project={project} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    <!-- Contact / Links section -->
+    <section class="flex flex-col gap-y-4">
+      <h2 class="text-xs font-bold tracking-[0.2em] text-on-surface-variant uppercase">
+        Contact
+      </h2>
+      <p class="text-sm text-on-surface-variant">
+        Reach out via{' '}
+        <Link
+          href={`mailto:tom@cloud1001.com`}
+          class="text-on-surface underline decoration-outline-variant underline-offset-4 hover:decoration-primary transition-colors"
+          external
+        >
+          email
+        </Link>
+        {' '}or find me on{' '}
+        <Link
+          href="https://github.com/tombull"
+          class="text-on-surface underline decoration-outline-variant underline-offset-4 hover:decoration-primary transition-colors"
+          external
+        >
+          GitHub
+        </Link>.
+      </p>
+    </section>
+  </div>
 </Layout>

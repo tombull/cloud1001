@@ -2,65 +2,96 @@
 import BlogCard from '@/components/blog-card.astro'
 import Link from '@/components/link.astro'
 import PageHead from '@/components/page-head.astro'
-import { buttonVariants } from '@/components/ui/button'
 import { SITE } from '@/consts'
 import Layout from '@/layouts/layout.astro'
 import { getRecentPosts } from '@/lib/data-utils'
 
 const blog = await getRecentPosts(SITE.featuredPostCount)
+const totalPosts = blog.length
 ---
 
-<Layout class="max-w-3xl">
+<Layout fullWidth>
   <PageHead slot="head" title="Home" />
-  <section class="rounded-lg border">
-    <div class="flex flex-col space-y-1.5 p-6">
-      <h3 class="text-3xl leading-none font-medium">er·u·dite</h3>
-      <p class="text-muted-foreground text-sm">
-        /ˈer(y)əˌdīt/ &bull; <span class="font-medium">adjective</span>
+
+  <!-- Hero Section -->
+  <section class="relative w-full">
+    <!-- Hero image placeholder: replace the div below with your <Image> when ready -->
+    <div
+      class="relative h-[60vh] min-h-[400px] w-full overflow-hidden"
+      aria-label="Hero image placeholder"
+    >
+      <!-- Placeholder background -->
+      <div
+        class="absolute inset-0"
+        style="background: linear-gradient(135deg, #0e0e0e 0%, #131313 40%, #1a1919 70%, #0e0e0e 100%);"
+      >
+        <!-- Subtle grid overlay -->
+        <div
+          class="absolute inset-0 opacity-10"
+          style="background-image: linear-gradient(rgba(161,250,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(161,250,255,0.2) 1px, transparent 1px); background-size: 48px 48px;"
+        ></div>
+      </div>
+      <!-- Bottom gradient fade -->
+      <div class="hero-gradient absolute inset-0 pointer-events-none"></div>
+    </div>
+
+    <!-- Hero text overlay -->
+    <div class="absolute inset-0 flex flex-col justify-end px-8 pb-12 md:px-16">
+      <div
+        class="mb-4 text-[10px] tracking-[0.25em] text-primary uppercase"
+      >
+        ESTABLISHED 2026 &bull; BY TOM BULL
+      </div>
+      <h1
+        class="text-glow mb-4 text-5xl font-black uppercase leading-none tracking-tighter text-on-surface md:text-7xl lg:text-8xl"
+      >
+        {SITE.title.toUpperCase()}
+      </h1>
+      <p
+        class="max-w-xl text-sm leading-relaxed text-on-surface-variant md:text-base"
+      >
+        {SITE.description}
       </p>
     </div>
-    <div class="p-6 pt-0">
-      <p class="text-muted-foreground mb-2 text-sm">
-        astro-erudite is an opinionated, unstyled static blogging template built
-        with <Link
-          href="https://astro.build"
-          class="text-foreground"
-          external
-          underline>Astro</Link
-        >, <Link
-          href="https://tailwindcss.com"
-          class="text-foreground"
-          external
-          underline>Tailwind</Link
-        >, and <Link
-          href="https://ui.shadcn.com"
-          class="text-foreground"
-          external
-          underline>shadcn/ui</Link
-        >. Extraordinarily loosely based on the <Link
-          href="https://astro-micro.vercel.app/"
-          class="text-foreground"
-          external
-          underline>Astro Micro</Link
-        > theme.
-      </p>
-      <p class="text-muted-foreground text-sm">
-        To use this template, check out the <Link
-          href="https://github.com/jktrn/astro-erudite"
-          class="text-foreground"
-          underline
-          external>GitHub</Link
-        > repository. To learn more about why this template exists, read this blog
-        post: <Link
-          href="/blog/the-state-of-static-blogs"
-          class="text-foreground"
-          underline>The State of Static Blogs in 2024</Link
-        >.
-      </p>
+
+    <!-- Data strip -->
+    <div class="data-strip w-full px-8 py-3 md:px-16">
+      <div class="flex flex-wrap gap-x-8 gap-y-1 text-[10px] tracking-widest text-on-surface-variant uppercase">
+        <span>CLOUD 1001</span>
+        <span>/</span>
+        <span>TECHNOLOGY &middot; AI &middot; CLOUD</span>
+        <span>/</span>
+        <span>{totalPosts} RECENT TRANSMISSION{totalPosts !== 1 ? 'S' : ''}</span>
+      </div>
     </div>
   </section>
-  <section class="flex flex-col gap-y-4">
-    <h2 class="text-2xl font-medium">Latest posts</h2>
+
+  <!-- Latest Posts Section -->
+  <section class="w-full px-8 py-12 md:px-16">
+    <!-- Section header -->
+    <div class="mb-8 flex items-baseline gap-6">
+      <h2
+        class="text-xs font-bold tracking-[0.2em] text-on-surface-variant uppercase"
+      >
+        Latest_Transmissions
+      </h2>
+      <div
+        class="text-[10px] tracking-[0.1em] text-tertiary uppercase"
+      >
+        [{totalPosts} ENTRIES]
+      </div>
+      <div class="ml-auto flex-shrink-0">
+        <Link
+          href="/blog"
+          class="group flex items-center gap-2 text-[10px] tracking-[0.1em] text-on-surface-variant uppercase transition-colors hover:text-primary"
+        >
+          VIEW ALL
+          <span class="transition-transform group-hover:translate-x-1">&rarr;</span>
+        </Link>
+      </div>
+    </div>
+
+    <!-- Blog card grid -->
     <ul class="flex flex-col gap-y-4">
       {
         blog.map((post) => (
@@ -70,16 +101,13 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
         ))
       }
     </ul>
-    <div class="flex justify-center">
-      <Link
-        href="/blog"
-        class={buttonVariants({ variant: 'ghost' }) + ' group'}
-      >
-        See all posts <span
-          class="ml-1.5 transition-transform group-hover:translate-x-1"
-          >&rarr;</span
-        >
-      </Link>
-    </div>
+
+    {
+      blog.length === 0 && (
+        <div class="border border-outline-variant/15 p-12 text-center text-on-surface-variant">
+          <p class="text-sm tracking-[0.05em] uppercase">No transmissions yet.</p>
+        </div>
+      )
+    }
   </section>
 </Layout>

@@ -26,7 +26,7 @@ const { items } = Astro.props
   <BreadcrumbList>
     <BreadcrumbItem>
       <BreadcrumbLink href="/">
-        <Icon name="lucide:home" class="size-4 shrink-0" />
+        <Icon name="lucide:home" class="size-3 shrink-0" />
       </BreadcrumbLink>
     </BreadcrumbItem>
     {
@@ -36,18 +36,18 @@ const { items } = Astro.props
           <BreadcrumbItem>
             {index === items.length - 1 ? (
               <BreadcrumbPage>
-                <span class="flex items-center gap-x-2">
+                <span class="flex items-center gap-x-1.5">
                   {item.icon && (
-                    <Icon name={item.icon} class="size-4 shrink-0" />
+                    <Icon name={item.icon} class="size-3 shrink-0" />
                   )}
                   <span>{item.label}</span>
                 </span>
               </BreadcrumbPage>
             ) : (
               <BreadcrumbLink href={item.href}>
-                <span class="flex items-center gap-x-2">
+                <span class="flex items-center gap-x-1.5">
                   {item.icon && (
-                    <Icon name={item.icon} class="size-4 shrink-0" />
+                    <Icon name={item.icon} class="size-3 shrink-0" />
                   )}
                   <span>{item.label}</span>
                 </span>

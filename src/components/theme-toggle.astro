@@ -1,36 +1,95 @@
 ---
-import { Button } from '@/components/ui/button'
-import { Icon } from 'astro-icon/components'
 ---
 
-<Button
+<button
   id="theme-toggle"
-  variant="ghost"
-  size="icon"
   title="Toggle theme"
-  className="-my-2 -me-2 size-8"
+  aria-label="Toggle theme"
+  class="flex size-8 items-center justify-center text-on-surface-variant transition-all duration-300 hover:text-primary active:scale-95"
 >
-  <Icon name="lucide:sun" class="size-4 dark:hidden" />
-  <Icon name="lucide:moon" class="absolute hidden size-4 dark:block" />
+  <!-- Sun icon (shown in dark mode, click to go light) -->
+  <svg
+    id="theme-icon-sun"
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="square"
+    stroke-linejoin="miter"
+    class="hidden"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="5"></circle>
+    <line x1="12" y1="1" x2="12" y2="3"></line>
+    <line x1="12" y1="21" x2="12" y2="23"></line>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+    <line x1="1" y1="12" x2="3" y2="12"></line>
+    <line x1="21" y1="12" x2="23" y2="12"></line>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+  </svg>
+  <!-- Moon icon (shown in light mode, click to go dark) -->
+  <svg
+    id="theme-icon-moon"
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="square"
+    stroke-linejoin="miter"
+    class="hidden"
+    aria-hidden="true"
+  >
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
   <span class="sr-only">Toggle theme</span>
-</Button>
+</button>
 
 <script is:inline data-astro-rerun>
   ;(() => {
-    const theme = (() => {
-      const stored = localStorage?.getItem('theme') ?? ''
-      if (['dark', 'light'].includes(stored)) return stored
-      return window.matchMedia('(prefers-color-scheme: dark)').matches
+    const stored = localStorage?.getItem('theme') ?? ''
+    const theme = ['dark', 'light'].includes(stored)
+      ? stored
+      : window.matchMedia('(prefers-color-scheme: dark)').matches
         ? 'dark'
         : 'light'
-    })()
 
     document.documentElement.setAttribute('data-theme', theme)
     window.localStorage.setItem('theme', theme)
+
+    const sun = document.getElementById('theme-icon-sun')
+    const moon = document.getElementById('theme-icon-moon')
+    if (theme === 'dark') {
+      sun?.classList.remove('hidden')
+      moon?.classList.add('hidden')
+    } else {
+      moon?.classList.remove('hidden')
+      sun?.classList.add('hidden')
+    }
   })()
 </script>
 
 <script>
+  function syncIcons(theme: string) {
+    const sun = document.getElementById('theme-icon-sun')
+    const moon = document.getElementById('theme-icon-moon')
+    if (!sun || !moon) return
+    if (theme === 'dark') {
+      sun.classList.remove('hidden')
+      moon.classList.add('hidden')
+    } else {
+      moon.classList.remove('hidden')
+      sun.classList.add('hidden')
+    }
+  }
+
   function handleToggleClick() {
     const element = document.documentElement
     const currentTheme = element.getAttribute('data-theme')
@@ -45,18 +104,22 @@ import { Icon } from 'astro-icon/components'
     })
 
     localStorage.setItem('theme', newTheme)
+    syncIcons(newTheme)
   }
 
   function initThemeToggle() {
     document
       .getElementById('theme-toggle')
       ?.addEventListener('click', handleToggleClick)
+
+    const stored = localStorage.getItem('theme') || 'dark'
+    syncIcons(stored)
   }
 
   initThemeToggle()
 
   document.addEventListener('astro:after-swap', () => {
-    const storedTheme = localStorage.getItem('theme') || 'light'
+    const storedTheme = localStorage.getItem('theme') || 'dark'
     const element = document.documentElement
 
     element.classList.add('[&_*]:transition-none')
@@ -67,6 +130,7 @@ import { Icon } from 'astro-icon/components'
       element.classList.remove('[&_*]:transition-none')
     })
 
+    syncIcons(storedTheme)
     initThemeToggle()
   })
 </script>

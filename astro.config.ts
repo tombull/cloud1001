@@ -17,7 +17,6 @@ import remarkMath from 'remark-math'
 
 import { pluginCollapsibleSections } from '@expressive-code/plugin-collapsible-sections'
 import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
-import type { ExpressiveCodeTheme } from 'rehype-expressive-code'
 
 import tailwindcss from '@tailwindcss/vite'
 
@@ -61,11 +60,9 @@ export default defineConfig({
       [
         rehypeExpressiveCode,
         {
-          themes: ['github-light', 'github-dark'],
+          themes: ['github-dark'],
           plugins: [pluginCollapsibleSections(), pluginLineNumbers()],
           useDarkModeMediaQuery: false,
-          themeCssSelector: (theme: ExpressiveCodeTheme) =>
-            `[data-theme="${theme.name.split('-')[1]}"]`,
           defaultProps: {
             wrap: true,
             collapseStyle: 'collapsible-auto',
@@ -78,14 +75,14 @@ export default defineConfig({
           },
           styleOverrides: {
             codeFontSize: '0.75rem',
-            borderColor: 'var(--border)',
+            borderColor: 'color-mix(in srgb, var(--outline-variant) 20%, transparent)',
             codeFontFamily: 'var(--font-mono)',
             codeBackground:
-              'color-mix(in oklab, var(--muted) 25%, transparent)',
+              'color-mix(in srgb, var(--surface-container-low) 80%, transparent)',
             frames: {
-              editorActiveTabForeground: 'var(--muted-foreground)',
+              editorActiveTabForeground: 'var(--on-surface-variant)',
               editorActiveTabBackground:
-                'color-mix(in oklab, var(--muted) 25%, transparent)',
+                'color-mix(in srgb, var(--surface-container-low) 80%, transparent)',
               editorActiveTabIndicatorBottomColor: 'transparent',
               editorActiveTabIndicatorTopColor: 'transparent',
               editorTabBorderRadius: '0',
@@ -93,13 +90,13 @@ export default defineConfig({
               editorTabBarBorderBottomColor: 'transparent',
               frameBoxShadowCssValue: 'none',
               terminalBackground:
-                'color-mix(in oklab, var(--muted) 25%, transparent)',
+                'color-mix(in srgb, var(--surface-container-low) 80%, transparent)',
               terminalTitlebarBackground: 'transparent',
               terminalTitlebarBorderBottomColor: 'transparent',
-              terminalTitlebarForeground: 'var(--muted-foreground)',
+              terminalTitlebarForeground: 'var(--on-surface-variant)',
             },
             lineNumbers: {
-              foreground: 'var(--muted-foreground)',
+              foreground: 'var(--on-surface-variant)',
             },
             uiFontFamily: 'var(--font-sans)',
           },

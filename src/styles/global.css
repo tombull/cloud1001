@@ -1,77 +1,305 @@
+/* ============================================================
+   CLOUD 1001 — "ASTRAL TERMINAL" DESIGN SYSTEM
+   Space Grotesk · Material 3-style tokens · 0px radius · Ghost borders
+   ============================================================ */
+
 @import 'tailwindcss';
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+/* ── Tailwind theme: map CSS custom properties → Tailwind utilities ── */
 @theme inline {
-  --font-sans:
-    Geist, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-mono:
-    Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
+  /* Fonts */
+  --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  --font-body: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-headline: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-label: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
 
+  /* Surface hierarchy */
+  --color-surface: var(--surface);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-bright: var(--surface-bright);
+  --color-surface-variant: var(--surface-variant);
+  --color-surface-tint: var(--surface-tint);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+
+  /* Content on surface */
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-on-background: var(--on-background);
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
 
+  /* Primary */
   --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-container: var(--primary-container);
+  --color-primary-dim: var(--primary-dim);
+  --color-primary-fixed: var(--primary-fixed);
+  --color-primary-fixed-dim: var(--primary-fixed-dim);
+  --color-on-primary: var(--on-primary);
+  --color-on-primary-container: var(--on-primary-container);
+  --color-on-primary-fixed: var(--on-primary-fixed);
+  --color-on-primary-fixed-variant: var(--on-primary-fixed-variant);
+  --color-inverse-primary: var(--inverse-primary);
 
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
+  /* Secondary */
+  --color-secondary: var(--secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-secondary-dim: var(--secondary-dim);
+  --color-secondary-fixed: var(--secondary-fixed);
+  --color-secondary-fixed-dim: var(--secondary-fixed-dim);
+  --color-on-secondary: var(--on-secondary);
+  --color-on-secondary-container: var(--on-secondary-container);
+  --color-on-secondary-fixed: var(--on-secondary-fixed);
+  --color-on-secondary-fixed-variant: var(--on-secondary-fixed-variant);
 
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
+  /* Tertiary */
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-container: var(--tertiary-container);
+  --color-tertiary-dim: var(--tertiary-dim);
+  --color-tertiary-fixed: var(--tertiary-fixed);
+  --color-tertiary-fixed-dim: var(--tertiary-fixed-dim);
+  --color-on-tertiary: var(--on-tertiary);
+  --color-on-tertiary-container: var(--on-tertiary-container);
+  --color-on-tertiary-fixed: var(--on-tertiary-fixed);
+  --color-on-tertiary-fixed-variant: var(--on-tertiary-fixed-variant);
 
-  --color-border: var(--border);
-  --color-ring: var(--ring);
+  /* Error */
+  --color-error: var(--error);
+  --color-error-container: var(--error-container);
+  --color-error-dim: var(--error-dim);
+  --color-on-error: var(--on-error);
+  --color-on-error-container: var(--on-error-container);
+
+  /* Outline */
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+
+  /* Inverse */
+  --color-inverse-surface: var(--inverse-surface);
+  --color-inverse-on-surface: var(--inverse-on-surface);
+
+  /* Legacy aliases for components that still reference --color-border / --color-ring */
+  --color-border: var(--outline-variant);
+  --color-ring: var(--primary);
+  --color-foreground: var(--on-surface);
+  --color-muted: var(--surface-container-high);
+  --color-muted-foreground: var(--on-surface-variant);
+  --color-destructive: var(--error);
+
+  /* Border radius: 0px everywhere, except pill shapes */
+  --radius: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-full: 9999px;
 }
 
-@font-face {
-  font-family: 'Geist';
-  src: url('/fonts/GeistVF.woff2') format('woff2-variations');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Geist Mono';
-  src: url('/fonts/GeistMonoVF.woff2') format('woff2-variations');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
+/* ── DARK THEME (default) ── */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  color-scheme: dark;
+
+  --surface: #0e0e0e;
+  --surface-dim: #0e0e0e;
+  --surface-bright: #2c2c2c;
+  --surface-variant: #262626;
+  --surface-tint: #a1faff;
+  --surface-container-lowest: #000000;
+  --surface-container-low: #131313;
+  --surface-container: #1a1919;
+  --surface-container-high: #201f1f;
+  --surface-container-highest: #262626;
+
+  --background: #0e0e0e;
+  --on-background: #ffffff;
+  --on-surface: #ffffff;
+  --on-surface-variant: #adaaaa;
+  --inverse-surface: #fcf8f8;
+  --inverse-on-surface: #565554;
+
+  --primary: #a1faff;
+  --primary-container: #00f4fe;
+  --primary-dim: #00e5ee;
+  --primary-fixed: #00f4fe;
+  --primary-fixed-dim: #00e5ee;
+  --on-primary: #006165;
+  --on-primary-container: #00575b;
+  --on-primary-fixed: #004346;
+  --on-primary-fixed-variant: #006266;
+  --inverse-primary: #006a6e;
+
+  --secondary: #e3e2e2;
+  --secondary-container: #464747;
+  --secondary-dim: #d4d4d4;
+  --secondary-fixed: #e3e2e2;
+  --secondary-fixed-dim: #d4d4d4;
+  --on-secondary: #515252;
+  --on-secondary-container: #d0d0d0;
+  --on-secondary-fixed: #3e3f40;
+  --on-secondary-fixed-variant: #5a5c5c;
+
+  --tertiary: #e966ff;
+  --tertiary-container: #d501f9;
+  --tertiary-dim: #c500e6;
+  --tertiary-fixed: #f189ff;
+  --tertiary-fixed-dim: #eb71ff;
+  --on-tertiary: #3c0048;
+  --on-tertiary-container: #000000;
+  --on-tertiary-fixed: #2f0039;
+  --on-tertiary-fixed-variant: #650077;
+
+  --error: #ff716c;
+  --error-container: #9f0519;
+  --error-dim: #d7383b;
+  --on-error: #490006;
+  --on-error-container: #ffa8a3;
+
+  --outline: #777575;
+  --outline-variant: #494847;
 }
 
-[data-theme='dark'] {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --ring: oklch(0.556 0 0);
+/* ── LIGHT THEME: "Inverted Terminal" ── */
+[data-theme='light'] {
+  color-scheme: light;
+
+  --surface: #f5f3f0;
+  --surface-dim: #e8e5e1;
+  --surface-bright: #ffffff;
+  --surface-variant: #eae8e5;
+  --surface-tint: #006a6e;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #edeae7;
+  --surface-container: #e7e4e1;
+  --surface-container-high: #dfddd9;
+  --surface-container-highest: #d9d6d2;
+
+  --background: #f5f3f0;
+  --on-background: #1a1a1a;
+  --on-surface: #1a1a1a;
+  --on-surface-variant: #5a5857;
+  --inverse-surface: #2f2e2e;
+  --inverse-on-surface: #d0cecc;
+
+  --primary: #006a6e;
+  --primary-container: #004346;
+  --primary-dim: #007b80;
+  --primary-fixed: #a1faff;
+  --primary-fixed-dim: #00e5ee;
+  --on-primary: #ffffff;
+  --on-primary-container: #d4fbff;
+  --on-primary-fixed: #004346;
+  --on-primary-fixed-variant: #006266;
+  --inverse-primary: #a1faff;
+
+  --secondary: #5a5c5c;
+  --secondary-container: #d0d0d0;
+  --secondary-dim: #6e7070;
+  --secondary-fixed: #e3e2e2;
+  --secondary-fixed-dim: #d4d4d4;
+  --on-secondary: #ffffff;
+  --on-secondary-container: #3e3f40;
+  --on-secondary-fixed: #3e3f40;
+  --on-secondary-fixed-variant: #5a5c5c;
+
+  --tertiary: #8b00a3;
+  --tertiary-container: #f3c8ff;
+  --tertiary-dim: #a000bf;
+  --tertiary-fixed: #f189ff;
+  --tertiary-fixed-dim: #eb71ff;
+  --on-tertiary: #ffffff;
+  --on-tertiary-container: #2f0039;
+  --on-tertiary-fixed: #2f0039;
+  --on-tertiary-fixed-variant: #650077;
+
+  --error: #ba1a1a;
+  --error-container: #ffdad6;
+  --error-dim: #c9312d;
+  --on-error: #ffffff;
+  --on-error-container: #410002;
+
+  --outline: #8c8986;
+  --outline-variant: #c4c1be;
 }
 
+/* ── BASE LAYER ── */
 @layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--surface);
+    color: var(--on-surface);
+  }
+
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    @apply border-border outline-ring/50 tracking-tight;
+    border-color: color-mix(in srgb, var(--outline-variant) 15%, transparent);
+    outline-color: color-mix(in srgb, var(--primary) 50%, transparent);
+    /* Hard-edged: 0px radius everywhere */
+    border-radius: 0px;
+  }
+
+  ::selection {
+    background-color: var(--primary);
+    color: var(--on-primary-fixed);
+  }
+}
+
+/* ── UTILITY CLASSES ── */
+
+/* Glassmorphism panel */
+@utility glass-panel {
+  background: color-mix(in srgb, var(--surface-variant) 40%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Psychedelic text glow */
+@utility text-glow {
+  text-shadow: 0 0 15px color-mix(in srgb, var(--primary) 40%, transparent);
+}
+
+/* Hero gradient overlay (bottom fade to surface) */
+@utility hero-gradient {
+  background: linear-gradient(
+    to bottom,
+    transparent 60%,
+    var(--surface) 100%
+  );
+}
+
+/* Data-strip: thin accent bar for metadata */
+@utility data-strip {
+  background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--outline-variant) 20%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 20%, transparent);
+}
+
+/* Ghost border: ultra-subtle containment border */
+@utility ghost-border {
+  border: 1px solid color-mix(in srgb, var(--outline-variant) 15%, transparent);
+}
+
+/* Custom scrollbar — primary teal thumb */
+@layer base {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--surface);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary);
+  }
+  ::-webkit-scrollbar-corner {
+    background: var(--surface);
   }
 }

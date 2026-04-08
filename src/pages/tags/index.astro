@@ -1,31 +1,43 @@
 ---
 import Breadcrumbs from '@/components/breadcrumbs.astro'
-import Link from '@/components/link.astro'
 import PageHead from '@/components/page-head.astro'
-import { badgeVariants } from '@/components/ui/badge'
 import Layout from '@/layouts/layout.astro'
-import { getSortedTags } from '@/lib/data-utils'
+import { getAllTags } from '@/lib/data-utils'
 import { Icon } from 'astro-icon/components'
 
-const sortedTags = await getSortedTags()
+const tags = await getAllTags()
+const sortedTags = tags.sort((a, b) => b.count - a.count)
 ---
 
-<Layout class="max-w-3xl">
+<Layout class="px-4 py-12 max-w-3xl md:px-8">
   <PageHead slot="head" title="Tags" />
-  <Breadcrumbs items={[{ label: 'Tags', icon: 'lucide:tags' }]} />
 
-  <div class="flex flex-col gap-4">
-    <div class="flex flex-wrap gap-2">
+  <div class="flex flex-col gap-y-8">
+    <div>
+      <Breadcrumbs items={[{ href: '/tags', label: 'Tags', icon: 'lucide:tag' }]} />
+      <div class="mt-6 flex items-baseline gap-4">
+        <h1 class="text-3xl font-black uppercase tracking-tighter text-on-surface">
+          Tags
+        </h1>
+        <span class="text-[10px] tracking-[0.1em] text-tertiary uppercase">
+          [{sortedTags.length} LABELS]
+        </span>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3">
       {
         sortedTags.map(({ tag, count }) => (
-          <Link
+          <a
             href={`/tags/${tag}`}
-            class={badgeVariants({ variant: 'muted' })}
+            class="group flex items-center gap-2 border border-outline-variant/15 bg-surface px-4 py-2 text-xs tracking-[0.05em] text-on-surface-variant uppercase transition-all duration-300 hover:border-primary/50 hover:bg-surface-container-low hover:text-on-surface"
           >
-            <Icon name="lucide:hash" class="size-3" />
-            {tag}
-            <span class="text-muted-foreground ml-1.5">({count})</span>
-          </Link>
+            <Icon name="lucide:hash" class="size-3 text-primary" />
+            <span>{tag}</span>
+            <span class="text-[10px] text-tertiary">
+              [{count}]
+            </span>
+          </a>
         ))
       }
     </div>

@@ -25,9 +25,9 @@ const socialLinks: SocialLink[] = [
 ---
 
 <div
-  class="has-[a:hover]:bg-muted/50 overflow-hidden rounded-xl border p-4 transition-colors duration-300 ease-in-out"
+  class="has-[a:hover]:bg-surface-container-low border border-outline-variant/15 bg-surface p-6 transition-colors duration-300"
 >
-  <div class="flex flex-wrap gap-4">
+  <div class="flex flex-wrap gap-6">
     <Link
       href={`/authors/${author.id}`}
       class={cn('block', isAuthorPage && 'pointer-events-none')}
@@ -38,23 +38,27 @@ const socialLinks: SocialLink[] = [
         alt={`Avatar of ${name}`}
         fallback={name[0]}
         className={cn(
-          'size-32 rounded-md *:data-[slot="avatar-fallback"]:rounded-md',
+          'size-24 *:data-[slot="avatar-fallback"]:text-lg',
           !isAuthorPage &&
-            'hover:ring-primary transition-shadow duration-300 hover:cursor-pointer hover:ring-2',
+            'hover:ring-2 hover:ring-primary transition-shadow duration-300 hover:cursor-pointer',
         )}
       />
     </Link>
     <div class="flex grow flex-col justify-between gap-y-4">
       <div>
-        <div class="flex flex-wrap items-center gap-x-2">
-          <h3 class="text-lg font-medium">{name}</h3>
+        <div class="mb-1 flex flex-wrap items-center gap-x-3">
+          <h3 class="text-base font-bold tracking-widest text-on-surface uppercase">
+            {name}
+          </h3>
           {
             pronouns && (
-              <span class="text-muted-foreground text-sm">({pronouns})</span>
+              <span class="text-[10px] tracking-[0.05em] text-on-surface-variant uppercase">
+                ({pronouns})
+              </span>
             )
           }
         </div>
-        <p class="text-muted-foreground text-sm">{bio}</p>
+        <p class="text-sm leading-relaxed text-on-surface-variant">{bio}</p>
       </div>
       <SocialIcons links={socialLinks} />
     </div>

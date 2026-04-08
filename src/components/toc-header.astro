@@ -45,11 +45,11 @@ const { headings } = Astro.props
             </div>
             <span
               id="mobile-toc-current-section"
-              class="text-muted-foreground flex-grow truncate text-sm"
+              class="text-on-surface-variant flex-grow truncate text-sm tracking-[0.05em] uppercase"
             >
               Overview
             </span>
-            <span class="text-muted-foreground ml-2">
+            <span class="text-on-surface-variant ml-2">
               <Icon
                 name="lucide:chevron-down"
                 class="h-4 w-4 transition-transform duration-200 group-open:rotate-180"
@@ -60,7 +60,7 @@ const { headings } = Astro.props
 
         <ScrollArea
           client:load
-          className="mx-auto max-w-3xl"
+          className="mx-auto max-w-3xl bg-surface-container-low"
           data-toc-header-scroll
         >
           <div class="max-h-[30vh]">
@@ -73,12 +73,12 @@ const { headings } = Astro.props
                   class={cn(
                     'px-4 text-sm',
                     getHeadingMargin(heading.depth),
-                    'text-foreground/60',
+                    'text-on-surface-variant',
                   )}
                 >
                   <a
                     href={`#${heading.slug}`}
-                    class="mobile-toc-item underline decoration-transparent underline-offset-[3px] transition-colors duration-200 hover:decoration-inherit"
+                    class="mobile-toc-item underline decoration-transparent underline-offset-[3px] transition-colors duration-200 hover:text-on-surface hover:decoration-outline-variant"
                     data-heading-id={heading.slug}
                   >
                     {heading.text}
@@ -221,9 +221,11 @@ const { headings } = Astro.props
         const tocItem = item as HTMLElement
         const headingId = tocItem.dataset.headingId
         if (headingId && headingIds.includes(headingId)) {
-          tocItem.classList.add('text-foreground')
+          tocItem.classList.add('text-on-surface')
+          tocItem.classList.remove('text-on-surface-variant')
         } else {
-          tocItem.classList.remove('text-foreground')
+          tocItem.classList.remove('text-on-surface')
+          tocItem.classList.add('text-on-surface-variant')
         }
       })
 

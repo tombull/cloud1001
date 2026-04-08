@@ -16,43 +16,56 @@ export async function getStaticPaths() {
 
 const { author } = Astro.props
 const authorPosts = await getPostsByAuthor(author.id)
+const publishedPosts = authorPosts.filter((post) => !post.data.draft)
 ---
 
-<Layout class="max-w-3xl">
+<Layout class="px-4 py-12 max-w-3xl md:px-8">
   <PageHead
     slot="head"
     title={`${author.data.name} (Author)`}
     description={author.data.bio || `Profile of ${author.data.name}.`}
     noindex
   />
-  <Breadcrumbs
-    items={[
-      { href: '/authors', label: 'Authors', icon: 'lucide:users' },
-      { label: author.data.name, icon: 'lucide:user' },
-    ]}
-  />
 
-  <section>
-    <AuthorCard author={author} />
-  </section>
-  <section class="flex flex-col gap-y-4">
-    <h2 class="text-2xl font-medium">Posts by {author.data.name}</h2>
-    {
-      authorPosts.length > 0 ? (
-        <ul class="flex flex-col gap-4">
-          {authorPosts
-            .filter((post) => !post.data.draft)
-            .map((post) => (
+  <div class="flex flex-col gap-y-8">
+    <div>
+      <Breadcrumbs
+        items={[
+          { href: '/authors', label: 'Authors', icon: 'lucide:users' },
+          { label: author.data.name, icon: 'lucide:user' },
+        ]}
+      />
+    </div>
+
+    <section>
+      <AuthorCard author={author} />
+    </section>
+
+    <section class="flex flex-col gap-y-6">
+      <div class="flex items-baseline gap-4">
+        <h2 class="text-xs font-bold tracking-[0.2em] text-on-surface-variant uppercase">
+          Transmissions
+        </h2>
+        <span class="text-[10px] tracking-[0.1em] text-tertiary uppercase">
+          [{publishedPosts.length} ENTR{publishedPosts.length === 1 ? 'Y' : 'IES'}]
+        </span>
+      </div>
+
+      {
+        publishedPosts.length > 0 ? (
+          <ul class="flex flex-col gap-4">
+            {publishedPosts.map((post) => (
               <li>
                 <BlogCard entry={post} />
               </li>
             ))}
-        </ul>
-      ) : (
-        <p class="text-muted-foreground">
-          No posts available from this author.
-        </p>
-      )
-    }
-  </section>
+          </ul>
+        ) : (
+          <div class="border border-outline-variant/15 p-12 text-center text-on-surface-variant">
+            <p class="text-sm tracking-[0.05em] uppercase">No transmissions from this author yet.</p>
+          </div>
+        )
+      }
+    </section>
+  </div>
 </Layout>

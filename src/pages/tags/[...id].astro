@@ -4,6 +4,7 @@ import Breadcrumbs from '@/components/breadcrumbs.astro'
 import PageHead from '@/components/page-head.astro'
 import Layout from '@/layouts/layout.astro'
 import { getAllTags, getPostsByTag } from '@/lib/data-utils'
+import { Icon } from 'astro-icon/components'
 
 export async function getStaticPaths() {
   const tagMap = await getAllTags()
@@ -26,27 +27,47 @@ export async function getStaticPaths() {
 const { tag, posts } = Astro.props
 ---
 
-<Layout class="max-w-3xl">
+<Layout class="px-4 py-12 max-w-3xl md:px-8">
   <PageHead
     slot="head"
     title={`Posts tagged with "${tag}"`}
     description={`A collection of posts tagged with ${tag}.`}
     noindex
   />
-  <Breadcrumbs
-    items={[
-      { href: '/tags', label: 'Tags', icon: 'lucide:tags' },
-      { label: tag, icon: 'lucide:tag' },
-    ]}
-  />
 
-  <ul class="flex flex-col gap-y-4">
+  <div class="flex flex-col gap-y-8">
+    <div>
+      <Breadcrumbs
+        items={[
+          { href: '/tags', label: 'Tags', icon: 'lucide:tags' },
+          { label: tag, icon: 'lucide:tag' },
+        ]}
+      />
+      <div class="mt-6 flex items-baseline gap-4">
+        <h1 class="flex items-center gap-2 text-3xl font-black uppercase tracking-tighter text-on-surface">
+          <Icon name="lucide:hash" class="size-6 text-primary" />
+          {tag}
+        </h1>
+        <span class="text-[10px] tracking-[0.1em] text-tertiary uppercase">
+          [{posts.length} ENTR{posts.length === 1 ? 'Y' : 'IES'}]
+        </span>
+      </div>
+    </div>
+
     {
-      posts.map((post) => (
-        <li>
-          <BlogCard entry={post} />
-        </li>
-      ))
+      posts.length > 0 ? (
+        <ul class="flex flex-col gap-y-4">
+          {posts.map((post) => (
+            <li>
+              <BlogCard entry={post} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="border border-outline-variant/15 p-12 text-center text-on-surface-variant">
+          <p class="text-sm tracking-[0.05em] uppercase">No transmissions found for this tag.</p>
+        </div>
+      )
     }
-  </ul>
+  </div>
 </Layout>

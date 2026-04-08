@@ -61,6 +61,7 @@ function PaginationLink({
           variant: isActive ? 'outline' : 'ghost',
           size,
         }),
+        isActive && 'border-primary/50',
         isDisabled && 'pointer-events-none opacity-50',
         className,
       )}

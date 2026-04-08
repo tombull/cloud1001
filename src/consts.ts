@@ -14,15 +14,11 @@ export const SITE: Site = {
 export const NAV_LINKS: SocialLink[] = [
   {
     href: '/blog',
-    label: 'blog',
-  },
-  {
-    href: '/authors',
-    label: 'authors',
+    label: 'ARCHIVE',
   },
   {
     href: '/about',
-    label: 'about',
+    label: 'ABOUT',
   },
 ]
 

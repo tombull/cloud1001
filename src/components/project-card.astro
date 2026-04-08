@@ -1,6 +1,5 @@
 ---
 import Link from '@/components/link.astro'
-import { Badge } from '@/components/ui/badge'
 import { formatDate } from '@/lib/utils'
 import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets'
@@ -14,11 +13,11 @@ const { project } = Astro.props
 ---
 
 <div
-  class="hover:bg-muted/50 rounded-xl border p-4 transition-colors duration-300 ease-in-out"
+  class="group border border-outline-variant/15 bg-surface transition-colors duration-300 hover:bg-surface-container-low"
 >
   <Link
     href={project.data.link}
-    class="flex flex-col gap-4 sm:flex-row"
+    class="flex flex-col gap-4 p-6 sm:flex-row"
     external
   >
     {
@@ -29,29 +28,29 @@ const { project } = Astro.props
             alt={project.data.name}
             width={1200}
             height={630}
-            class="object-cover"
+            class="h-full w-full object-cover saturate-50 filter transition-all duration-500 group-hover:saturate-100"
           />
         </div>
       )
     }
     <div class="grow">
-      <h3 class="mb-1 text-lg font-medium">
+      <h3
+        class="mb-2 text-lg font-bold tracking-tight text-on-surface transition-colors group-hover:text-primary"
+      >
         {project.data.name}
       </h3>
-      <p class="text-muted-foreground mb-2 text-sm">
+      <p class="mb-3 text-sm leading-relaxed text-on-surface-variant">
         {project.data.description}
       </p>
       {
         project.data.startDate && (
-          <p class="text-muted-foreground/70 mb-2 flex items-center gap-x-1.5 text-xs">
-            <span class="flex items-center gap-x-1.5">
-              <Icon name="lucide:calendar" class="size-3" />
-              <span>
-                {formatDate(project.data.startDate)}
-                {project.data.endDate
-                  ? ` → ${formatDate(project.data.endDate)}`
-                  : ' → Present'}
-              </span>
+          <p class="mb-3 flex items-center gap-x-1.5 text-[10px] tracking-[0.1em] text-on-surface-variant uppercase">
+            <Icon name="lucide:calendar" class="size-3" />
+            <span>
+              {formatDate(project.data.startDate)}
+              {project.data.endDate
+                ? ` → ${formatDate(project.data.endDate)}`
+                : ' → Present'}
             </span>
           </p>
         )
@@ -60,7 +59,9 @@ const { project } = Astro.props
         project.data.tags && (
           <div class="flex flex-wrap gap-2">
             {project.data.tags.map((tag: string) => (
-              <Badge variant="muted">{tag}</Badge>
+              <span class="bg-primary/10 px-2 py-0.5 text-[10px] tracking-[0.05em] text-on-surface uppercase">
+                {tag}
+              </span>
             ))}
           </div>
         )

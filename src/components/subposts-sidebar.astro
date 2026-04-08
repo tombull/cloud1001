@@ -54,7 +54,7 @@ const subpostsWithReadingTime = await Promise.all(
           activePost && (
             <li>
               {isActivePost ? (
-                <div class="text-foreground bg-muted subposts-sidebar-active-item flex items-center gap-2 rounded-md py-1.5 pr-3 pl-2 text-sm font-medium text-pretty">
+                <div class="text-on-surface bg-surface-container-low subposts-sidebar-active-item flex items-center gap-2 py-1.5 pr-3 pl-2 text-sm font-medium text-pretty">
                   <Icon
                     name="lucide:book-open-text"
                     class="size-4 shrink-0"
@@ -65,7 +65,7 @@ const subpostsWithReadingTime = await Promise.all(
                       {activePost.data.title}
                     </span>
                     {activePostReadingTime && (
-                      <span class="text-muted-foreground/80 text-xs">
+                      <span class="text-on-surface-variant/80 text-xs">
                         {activePostReadingTime}
                         {activePostCombinedReadingTime &&
                           activePostCombinedReadingTime !==
@@ -82,7 +82,7 @@ const subpostsWithReadingTime = await Promise.all(
               ) : (
                 <Link
                   href={`/blog/${activePost.id}#post-title`}
-                  class="hover:text-foreground text-muted-foreground hover:bg-muted/50 subposts-sidebar-link flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-pretty transition-colors"
+                  class="hover:text-on-surface text-on-surface-variant hover:bg-surface-container-high subposts-sidebar-link flex items-center gap-2 px-2 py-1.5 text-sm text-pretty transition-colors"
                 >
                   <Icon
                     name="lucide:book-open"
@@ -94,7 +94,7 @@ const subpostsWithReadingTime = await Promise.all(
                       {activePost.data.title}
                     </span>
                     {activePostReadingTime && (
-                      <span class="text-muted-foreground/80 text-xs">
+                      <span class="text-on-surface-variant/80 text-xs">
                         {activePostReadingTime}
                         {activePostCombinedReadingTime &&
                           activePostCombinedReadingTime !==
@@ -118,7 +118,7 @@ const subpostsWithReadingTime = await Promise.all(
             <li class="ml-4 space-y-1">
               {subpostsWithReadingTime.map((subpost) =>
                 currentPostId === subpost.id ? (
-                  <div class="text-foreground bg-muted subposts-sidebar-active-item flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium text-pretty">
+                  <div class="text-on-surface bg-surface-container-low subposts-sidebar-active-item flex items-center gap-2 px-2 py-1.5 text-sm font-medium text-pretty">
                     <Icon
                       name="lucide:file-text"
                       class="size-4 shrink-0"
@@ -128,7 +128,7 @@ const subpostsWithReadingTime = await Promise.all(
                       <span class="line-clamp-2 text-pretty">
                         {subpost.data.title}
                       </span>
-                      <span class="text-muted-foreground/80 text-xs">
+                      <span class="text-on-surface-variant/80 text-xs">
                         {subpost.readingTime}
                       </span>
                     </div>
@@ -136,7 +136,7 @@ const subpostsWithReadingTime = await Promise.all(
                 ) : (
                   <Link
                     href={`/blog/${subpost.id}`}
-                    class="hover:text-foreground text-muted-foreground hover:bg-muted/50 subposts-sidebar-link flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-pretty transition-colors"
+                    class="hover:text-on-surface text-on-surface-variant hover:bg-surface-container-high subposts-sidebar-link flex items-center gap-2 px-2 py-1.5 text-sm text-pretty transition-colors"
                   >
                     <Icon
                       name="lucide:file"
@@ -147,7 +147,7 @@ const subpostsWithReadingTime = await Promise.all(
                       <span class="line-clamp-2 text-pretty">
                         {subpost.data.title}
                       </span>
-                      <span class="text-muted-foreground/80 text-xs">
+                      <span class="text-on-surface-variant/80 text-xs">
                         {subpost.readingTime}
                       </span>
                     </div>
