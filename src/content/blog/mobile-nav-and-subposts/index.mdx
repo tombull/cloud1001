@@ -15,13 +15,13 @@ astro-erudite's v1.6.0 brings about two significant enhancements that I've been 
 
 The original table of contents implementation was frankly inadequate for mobile users. While desktop users enjoyed a beautiful sticky sidebar with scroll-aware highlighting, mobile users were stuck with a basic collapsible `<details>{:html}` element that provided no indication of reading progress or current location within the post:
 
-<div class="max-w-xs mx-auto">
-![Old TOC implementation](assets/old-toc.png)
+<div class="mx-auto max-w-xs">
+  ![Old TOC implementation](assets/old-toc.png)
 </div>
 
 The new mobile navigation system introduces a sticky header that sits just below the main site navigation, featuring a circular progress indicator and dynamic section display. As you scroll through a post, the progress circle fills to show how far you've read, while the text updates to reflect which section you're currently viewing. Tapping on this header expands a comprehensive table of contents that mirrors the desktop experience but in a mobile-friendly format:
 
-<div class="flex gap-4 flex-wrap justify-center [&_img,p]:m-0">
+<div class="flex flex-wrap justify-center gap-4 [&_img,p]:m-0">
   <div class="max-w-xs">
     ![New TOC implementation (closed)](assets/new-toc-closed.png)
   </div>
@@ -57,14 +57,14 @@ src/
   </div>
 </div>
 
-The file structure is intuitive: create a folder for your main topic with an `index.mdx` file as your parent post, then add additional `.mdx` files in the same folder as subposts. Astro's file-based routing handles the URL structure automatically, creating paths like `/blog/subposts` for the parent post and `/blog/subposts/mobile-navigation` and `/blog/subposts/subposts` for the subposts.
+The file structure is intuitive: create a folder for your main topic with an `index.mdx` file as your parent post, then add additional `.mdx` files in the same folder as subposts. Astro's file-based routing handles the URL structure automatically, creating paths like `/archive/subposts` for the parent post and `/archive/subposts/mobile-navigation` and `/archive/subposts/subposts` for the subposts.
 
 #### Enhanced navigation patterns
 
 Of course, we need to adjust our `<PostNavigation>{:tsx}` component to support this new feature. Now, whenever we're reading a subpost, we now have the option to traverse between subposts or even upwards to the parent post:
 
 <div class="border [&_img,p]:m-0">
-![Subposts navigation](assets/subpost-navigation.png)
+  ![Subposts navigation](assets/subpost-navigation.png)
 </div>
 
 This is contextually aware, meaning that if you're reading a parent post (or a post with no children), then this component will only show adjacent parent-level posts.

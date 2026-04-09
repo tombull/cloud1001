@@ -29,26 +29,25 @@ const totalPosts = blog.length
         <div
           class="absolute inset-0 opacity-10"
           style="background-image: linear-gradient(rgba(161,250,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(161,250,255,0.2) 1px, transparent 1px); background-size: 48px 48px;"
-        ></div>
+        >
+        </div>
       </div>
       <!-- Bottom gradient fade -->
-      <div class="hero-gradient absolute inset-0 pointer-events-none"></div>
+      <div class="hero-gradient pointer-events-none absolute inset-0"></div>
     </div>
 
     <!-- Hero text overlay -->
     <div class="absolute inset-0 flex flex-col justify-end px-8 pb-12 md:px-16">
-      <div
-        class="mb-4 text-[10px] tracking-[0.25em] text-primary uppercase"
-      >
+      <div class="text-primary mb-4 text-[10px] tracking-[0.25em] uppercase">
         ESTABLISHED 2026 &bull; BY TOM BULL
       </div>
       <h1
-        class="text-glow mb-4 text-5xl font-black uppercase leading-none tracking-tighter text-on-surface md:text-7xl lg:text-8xl"
+        class="text-glow text-on-surface mb-4 text-5xl leading-none font-black tracking-tighter uppercase md:text-7xl lg:text-8xl"
       >
         {SITE.title.toUpperCase()}
       </h1>
       <p
-        class="max-w-xl text-sm leading-relaxed text-on-surface-variant md:text-base"
+        class="text-on-surface-variant max-w-xl text-sm leading-relaxed md:text-base"
       >
         {SITE.description}
       </p>
@@ -56,12 +55,16 @@ const totalPosts = blog.length
 
     <!-- Data strip -->
     <div class="data-strip w-full px-8 py-3 md:px-16">
-      <div class="flex flex-wrap gap-x-8 gap-y-1 text-[10px] tracking-widest text-on-surface-variant uppercase">
+      <div
+        class="text-on-surface-variant flex flex-wrap gap-x-8 gap-y-1 text-[10px] tracking-widest uppercase"
+      >
         <span>CLOUD 1001</span>
         <span>/</span>
         <span>TECHNOLOGY &middot; AI &middot; CLOUD</span>
         <span>/</span>
-        <span>{totalPosts} RECENT TRANSMISSION{totalPosts !== 1 ? 'S' : ''}</span>
+        <span
+          >{totalPosts} RECENT TRANSMISSION{totalPosts !== 1 ? 'S' : ''}</span
+        >
       </div>
     </div>
   </section>
@@ -71,22 +74,22 @@ const totalPosts = blog.length
     <!-- Section header -->
     <div class="mb-8 flex items-baseline gap-6">
       <h2
-        class="text-xs font-bold tracking-[0.2em] text-on-surface-variant uppercase"
+        class="text-on-surface-variant text-xs font-bold tracking-[0.2em] uppercase"
       >
         Latest_Transmissions
       </h2>
-      <div
-        class="text-[10px] tracking-[0.1em] text-tertiary uppercase"
-      >
+      <div class="text-tertiary text-[10px] tracking-[0.1em] uppercase">
         [{totalPosts} ENTRIES]
       </div>
       <div class="ml-auto flex-shrink-0">
         <Link
-          href="/blog"
-          class="group flex items-center gap-2 text-[10px] tracking-[0.1em] text-on-surface-variant uppercase transition-colors hover:text-primary"
+          href="/archive"
+          class="group text-on-surface-variant hover:text-primary flex items-center gap-2 text-[10px] tracking-[0.1em] uppercase transition-colors"
         >
           VIEW ALL
-          <span class="transition-transform group-hover:translate-x-1">&rarr;</span>
+          <span class="transition-transform group-hover:translate-x-1"
+            >&rarr;</span
+          >
         </Link>
       </div>
     </div>
@@ -104,8 +107,10 @@ const totalPosts = blog.length
 
     {
       blog.length === 0 && (
-        <div class="border border-outline-variant/15 p-12 text-center text-on-surface-variant">
-          <p class="text-sm tracking-[0.05em] uppercase">No transmissions yet.</p>
+        <div class="border-outline-variant/15 text-on-surface-variant border p-12 text-center">
+          <p class="text-sm tracking-[0.05em] uppercase">
+            No transmissions yet.
+          </p>
         </div>
       )
     }

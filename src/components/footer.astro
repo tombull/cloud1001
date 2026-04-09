@@ -5,17 +5,17 @@ import Link from './link.astro'
 import { Icon } from 'astro-icon/components'
 ---
 
-<footer class="mt-auto w-full border-t border-primary/15 bg-surface">
+<footer class="border-primary/15 bg-surface mt-auto w-full border-t">
   <div
     class="flex w-full flex-col items-center justify-between px-8 py-12 md:flex-row"
   >
     <!-- Brand -->
     <div class="mb-8 md:mb-0">
-      <div class="mb-2 text-lg font-black text-on-surface tracking-tighter">
+      <div class="text-on-surface mb-2 text-lg font-black tracking-tighter">
         {SITE.title.toUpperCase()}
       </div>
       <div
-        class="text-[10px] tracking-[0.1em] text-on-surface-variant uppercase"
+        class="text-on-surface-variant text-[10px] tracking-[0.1em] uppercase"
       >
         &copy;{new Date().getFullYear()} TOM BULL. ALL RIGHTS RESERVED.
       </div>
@@ -24,27 +24,27 @@ import { Icon } from 'astro-icon/components'
     <!-- Nav links -->
     <div class="flex gap-12 text-[10px] tracking-[0.1em] uppercase">
       <Link
-        href="/blog"
-        class="text-on-surface-variant underline underline-offset-4 transition-colors duration-300 hover:text-primary"
+        href="/archive"
+        class="text-on-surface-variant hover:text-primary underline underline-offset-4 transition-colors duration-300"
       >
         ARCHIVE
       </Link>
       <Link
         href="/about"
-        class="text-on-surface-variant underline underline-offset-4 transition-colors duration-300 hover:text-primary"
+        class="text-on-surface-variant hover:text-primary underline underline-offset-4 transition-colors duration-300"
       >
         ABOUT
       </Link>
       <Link
         href="/rss.xml"
-        class="text-on-surface-variant underline underline-offset-4 transition-colors duration-300 hover:text-primary"
+        class="text-on-surface-variant hover:text-primary underline underline-offset-4 transition-colors duration-300"
       >
         RSS
       </Link>
     </div>
 
     <!-- Social icons -->
-    <div class="mt-8 flex gap-5 text-on-surface-variant md:mt-0">
+    <div class="text-on-surface-variant mt-8 flex gap-5 md:mt-0">
       {
         SOCIAL_LINKS.map(({ href, label }) => (
           <Link
@@ -52,7 +52,7 @@ import { Icon } from 'astro-icon/components'
             external
             aria-label={label}
             title={label}
-            class="transition-colors duration-300 hover:text-primary"
+            class="hover:text-primary transition-colors duration-300"
           >
             <Icon
               name={ICON_MAP[label as keyof typeof ICON_MAP] || 'lucide:link'}

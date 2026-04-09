@@ -27,7 +27,9 @@ const parentId = isCurrentSubpost ? getParentId(currentPostId) : currentPostId
         data-toc-scroll-area
       >
         <div class="flex flex-col gap-2 px-4">
-          <span class="text-xs font-bold tracking-[0.1em] text-on-surface-variant uppercase">Table of Contents</span>
+          <span class="text-on-surface-variant text-xs font-bold tracking-[0.1em] uppercase">
+            Table of Contents
+          </span>
           {sections.map((section, index) => {
             const isFirstSubpost =
               section.type === 'subpost' &&
@@ -60,10 +62,10 @@ const parentId = isCurrentSubpost ? getParentId(currentPostId) : currentPostId
                         <a
                           href={
                             isCurrentSubpost
-                              ? `/blog/${parentId}#${heading.slug}`
+                              ? `/archive/${parentId}#${heading.slug}`
                               : `#${heading.slug}`
                           }
-                          class="marker:text-on-surface/30 list-none underline decoration-transparent underline-offset-[3px] transition-colors duration-200 hover:text-on-surface hover:decoration-outline-variant"
+                          class="marker:text-on-surface/30 hover:text-on-surface hover:decoration-outline-variant list-none underline decoration-transparent underline-offset-[3px] transition-colors duration-200"
                           data-heading-link={heading.slug}
                         >
                           {heading.text}
@@ -74,8 +76,10 @@ const parentId = isCurrentSubpost ? getParentId(currentPostId) : currentPostId
                 ) : (
                   <div
                     class={cn(
-                      'border border-outline-variant/15 p-2',
-                      section.subpostId === currentPostId ? 'bg-surface-container-low' : '',
+                      'border-outline-variant/15 border p-2',
+                      section.subpostId === currentPostId
+                        ? 'bg-surface-container-low'
+                        : '',
                     )}
                   >
                     <ul class="flex list-none flex-col gap-y-2">
@@ -91,9 +95,9 @@ const parentId = isCurrentSubpost ? getParentId(currentPostId) : currentPostId
                           href={
                             section.subpostId === currentPostId
                               ? '#'
-                              : `/blog/${section.subpostId}`
+                              : `/archive/${section.subpostId}`
                           }
-                          class="marker:text-on-surface/30 list-none underline decoration-transparent underline-offset-[3px] transition-colors duration-200 hover:text-on-surface hover:decoration-outline-variant"
+                          class="marker:text-on-surface/30 hover:text-on-surface hover:decoration-outline-variant list-none underline decoration-transparent underline-offset-[3px] transition-colors duration-200"
                           data-heading-link={
                             section.subpostId === currentPostId
                               ? 'top'
@@ -117,9 +121,9 @@ const parentId = isCurrentSubpost ? getParentId(currentPostId) : currentPostId
                             href={
                               section.subpostId === currentPostId
                                 ? `#${heading.slug}`
-                                : `/blog/${section.subpostId}#${heading.slug}`
+                                : `/archive/${section.subpostId}#${heading.slug}`
                             }
-                            class="marker:text-on-surface/30 hover:text-on-surface list-none underline decoration-transparent underline-offset-[3px] transition-colors duration-200 hover:decoration-outline-variant"
+                            class="marker:text-on-surface/30 hover:text-on-surface hover:decoration-outline-variant list-none underline decoration-transparent underline-offset-[3px] transition-colors duration-200"
                             data-heading-link={
                               section.subpostId === currentPostId
                                 ? heading.slug

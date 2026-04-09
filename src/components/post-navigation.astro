@@ -14,7 +14,7 @@ const isSubpost = !!parentPost
   )}
 >
   <Link
-    href={olderPost ? `/blog/${olderPost.id}#post-title` : '#'}
+    href={olderPost ? `/archive/${olderPost.id}#post-title` : '#'}
     class={cn(
       'group flex size-full items-center justify-start border border-outline-variant/20 bg-surface p-4 transition-all duration-300 hover:border-primary/40 hover:bg-surface-container-low',
       !olderPost && 'pointer-events-none cursor-not-allowed opacity-30',
@@ -23,13 +23,17 @@ const isSubpost = !!parentPost
   >
     <Icon
       name="lucide:arrow-left"
-      class="mr-3 size-4 shrink-0 text-on-surface-variant transition-transform group-hover:-translate-x-1"
+      class="text-on-surface-variant mr-3 size-4 shrink-0 transition-transform group-hover:-translate-x-1"
     />
     <div class="flex flex-col items-start overflow-hidden">
-      <span class="text-[10px] tracking-[0.1em] text-on-surface-variant uppercase">
+      <span
+        class="text-on-surface-variant text-[10px] tracking-[0.1em] uppercase"
+      >
         {isSubpost ? 'Previous Subpost' : 'Previous Post'}
       </span>
-      <span class="mt-1 w-full text-left text-sm font-medium text-on-surface text-balance text-ellipsis">
+      <span
+        class="text-on-surface mt-1 w-full text-left text-sm font-medium text-balance text-ellipsis"
+      >
         {
           olderPost?.data.title ||
             (isSubpost ? 'No older subpost' : "You're at the oldest post!")
@@ -41,22 +45,21 @@ const isSubpost = !!parentPost
   {
     isSubpost && (
       <Link
-        href={parentPost ? `/blog/${parentPost.id}#post-title` : '#'}
+        href={parentPost ? `/archive/${parentPost.id}#post-title` : '#'}
         class={cn(
-          'group flex size-full items-center justify-center border border-outline-variant/20 bg-surface p-4 transition-all duration-300 hover:border-primary/40 hover:bg-surface-container-low',
-          !parentPost &&
-            'pointer-events-none cursor-not-allowed opacity-30',
+          'group border-outline-variant/20 bg-surface hover:border-primary/40 hover:bg-surface-container-low flex size-full items-center justify-center border p-4 transition-all duration-300',
+          !parentPost && 'pointer-events-none cursor-not-allowed opacity-30',
         )}
       >
         <Icon
           name="lucide:corner-left-up"
-          class="mr-3 size-4 shrink-0 text-on-surface-variant transition-transform group-hover:-translate-y-1"
+          class="text-on-surface-variant mr-3 size-4 shrink-0 transition-transform group-hover:-translate-y-1"
         />
         <div class="flex flex-col items-center overflow-hidden">
-          <span class="text-[10px] tracking-[0.1em] text-on-surface-variant uppercase">
+          <span class="text-on-surface-variant text-[10px] tracking-[0.1em] uppercase">
             Parent Post
           </span>
-          <span class="mt-1 w-full text-center text-sm font-medium text-on-surface text-balance text-ellipsis">
+          <span class="text-on-surface mt-1 w-full text-center text-sm font-medium text-balance text-ellipsis">
             {parentPost?.data.title || 'No parent post'}
           </span>
         </div>
@@ -65,7 +68,7 @@ const isSubpost = !!parentPost
   }
 
   <Link
-    href={newerPost ? `/blog/${newerPost.id}#post-title` : '#'}
+    href={newerPost ? `/archive/${newerPost.id}#post-title` : '#'}
     class={cn(
       'group flex size-full items-center justify-end border border-outline-variant/20 bg-surface p-4 transition-all duration-300 hover:border-primary/40 hover:bg-surface-container-low',
       !newerPost && 'pointer-events-none cursor-not-allowed opacity-30',
@@ -73,10 +76,14 @@ const isSubpost = !!parentPost
     aria-disabled={!newerPost}
   >
     <div class="flex flex-col items-end overflow-hidden">
-      <span class="text-[10px] tracking-[0.1em] text-on-surface-variant uppercase">
+      <span
+        class="text-on-surface-variant text-[10px] tracking-[0.1em] uppercase"
+      >
         {isSubpost ? 'Next Subpost' : 'Next Post'}
       </span>
-      <span class="mt-1 w-full text-right text-sm font-medium text-on-surface text-balance text-ellipsis">
+      <span
+        class="text-on-surface mt-1 w-full text-right text-sm font-medium text-balance text-ellipsis"
+      >
         {
           newerPost?.data.title ||
             (isSubpost ? 'No newer subpost' : "You're at the newest post!")
@@ -85,7 +92,7 @@ const isSubpost = !!parentPost
     </div>
     <Icon
       name="lucide:arrow-right"
-      class="ml-3 size-4 shrink-0 text-on-surface-variant transition-transform group-hover:translate-x-1"
+      class="text-on-surface-variant ml-3 size-4 shrink-0 transition-transform group-hover:translate-x-1"
     />
   </Link>
 </nav>
