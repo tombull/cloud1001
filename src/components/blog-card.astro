@@ -27,7 +27,7 @@ const subpostCount = !isSubpost(entry.id) ? await getSubpostCount(entry.id) : 0
   class="group cursor-pointer border border-outline-variant/15 bg-surface transition-colors duration-300 hover:bg-surface-container-low"
 >
   <Link
-    href={`/${entry.collection}/${entry.id}`}
+    href={`/archive/${entry.id}`}
     class="flex flex-col gap-4 p-6 sm:flex-row"
   >
     {

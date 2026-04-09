@@ -83,23 +83,23 @@ const tocSections = await getTOCSections(currentPostId)
     <div class="col-start-2 px-4 md:px-0">
       <Breadcrumbs
         items={[
-          { href: '/blog', label: 'Archive', icon: 'lucide:library-big' },
+          { href: '/archive', label: 'Archive', icon: 'lucide:library-big' },
           ...(isCurrentSubpost && parentPost
             ? [
                 {
-                  href: `/blog/${parentPost.id}`,
+                  href: `/archive/${parentPost.id}`,
                   label: parentPost.data.title,
                   icon: 'lucide:book-open',
                 },
                 {
-                  href: `/blog/${currentPostId}`,
+                  href: `/archive/${currentPostId}`,
                   label: post.data.title,
                   icon: 'lucide:file-text',
                 },
               ]
             : [
                 {
-                  href: `/blog/${currentPostId}`,
+                  href: `/archive/${currentPostId}`,
                   label: post.data.title,
                   icon: 'lucide:book-open-text',
                 },
@@ -111,7 +111,7 @@ const tocSections = await getTOCSections(currentPostId)
     <!-- Hero image (with gradient overlay) -->
     {
       post.data.image && (
-        <div class="col-span-full relative">
+        <div class="relative col-span-full">
           <Image
             src={post.data.image}
             alt={post.data.title}
@@ -119,7 +119,7 @@ const tocSections = await getTOCSections(currentPostId)
             height={630}
             class="col-span-full mx-auto w-full max-w-5xl object-cover saturate-75"
           />
-          <div class="hero-gradient absolute inset-0 pointer-events-none" />
+          <div class="hero-gradient pointer-events-none absolute inset-0" />
         </div>
       )
     }
@@ -129,7 +129,7 @@ const tocSections = await getTOCSections(currentPostId)
       <!-- Title -->
       <div class="flex flex-col gap-y-4">
         <h1
-          class="text-glow scroll-mt-31 text-3xl font-black uppercase leading-tight tracking-tighter sm:text-4xl md:text-5xl"
+          class="text-glow scroll-mt-31 text-3xl leading-tight font-black tracking-tighter uppercase sm:text-4xl md:text-5xl"
           id="post-title"
         >
           {post.data.title}
@@ -137,7 +137,7 @@ const tocSections = await getTOCSections(currentPostId)
 
         <!-- Metadata in label style -->
         <div
-          class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[10px] tracking-[0.1em] text-on-surface-variant uppercase"
+          class="text-on-surface-variant flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[10px] tracking-[0.1em] uppercase"
         >
           {
             authors.length > 0 && (
@@ -200,7 +200,7 @@ const tocSections = await getTOCSections(currentPostId)
               {post.data.tags.map((tag) => (
                 <a
                   href={`/tags/${tag}`}
-                  class="bg-primary/10 px-2 py-0.5 text-[10px] tracking-[0.05em] text-on-surface uppercase transition-colors hover:bg-primary/20"
+                  class="bg-primary/10 text-on-surface hover:bg-primary/20 px-2 py-0.5 text-[10px] tracking-[0.05em] uppercase transition-colors"
                 >
                   <Icon name="lucide:hash" class="mr-0.5 inline size-2.5" />
                   {tag}
@@ -253,14 +253,14 @@ const tocSections = await getTOCSections(currentPostId)
     <!-- Author bios -->
     {
       authors.length > 0 && (
-        <div class="col-start-2 flex flex-col gap-4 border-t border-outline-variant/15 pt-8 px-4 md:px-0">
-          <h3 class="text-[10px] font-bold tracking-[0.1em] text-on-surface-variant uppercase">
+        <div class="border-outline-variant/15 col-start-2 flex flex-col gap-4 border-t px-4 pt-8 md:px-0">
+          <h3 class="text-on-surface-variant text-[10px] font-bold tracking-[0.1em] uppercase">
             About the Author{authors.length > 1 ? 's' : ''}
           </h3>
           {authors.map((author) => (
             <div class="flex items-start gap-4">
               <div class="shrink-0">
-                <div class="size-10 overflow-hidden bg-gradient-to-br from-primary to-tertiary flex items-center justify-center">
+                <div class="from-primary to-tertiary flex size-10 items-center justify-center overflow-hidden bg-gradient-to-br">
                   <Image
                     src={author.avatar}
                     alt={author.name}
@@ -271,16 +271,16 @@ const tocSections = await getTOCSections(currentPostId)
                 </div>
               </div>
               <div class="flex flex-col gap-1">
-                <div class="text-xs font-bold tracking-widest text-on-surface uppercase">
+                <div class="text-on-surface text-xs font-bold tracking-widest uppercase">
                   {author.name}
                 </div>
-                <div class="text-xs text-on-surface-variant leading-relaxed">
+                <div class="text-on-surface-variant text-xs leading-relaxed">
                   {author.bio || 'Author at Cloud 1001.'}
                 </div>
                 {author.isRegistered && (
                   <Link
                     href={`/authors/${author.id}`}
-                    class="mt-1 text-[10px] tracking-[0.1em] text-primary uppercase hover:underline"
+                    class="text-primary mt-1 text-[10px] tracking-[0.1em] uppercase hover:underline"
                   >
                     View all posts &rarr;
                   </Link>
