@@ -1,5 +1,6 @@
 ---
 import BlogCard from '@/components/blog-card.astro'
+import HomeHeroCarousel from '@/components/ui/home-hero-carousel'
 import Link from '@/components/link.astro'
 import PageHead from '@/components/page-head.astro'
 import { SITE } from '@/consts'
@@ -7,6 +8,14 @@ import Layout from '@/layouts/layout.astro'
 import { getRecentPosts } from '@/lib/data-utils'
 
 const blog = await getRecentPosts(SITE.featuredPostCount)
+const heroImages = [
+  '/static/home_hero/celestial_dreamers.webp',
+  '/static/home_hero/cosmic_duality.webp',
+  '/static/home_hero/cosmic_peaks.webp',
+  '/static/home_hero/stellar_awakening.webp',
+  '/static/home_hero/the_astral_eye.webp',
+  '/static/home_hero/the_starlight_citadel.webp',
+].map((src) => ({ src }))
 const totalPosts = blog.length
 ---
 
@@ -15,26 +24,8 @@ const totalPosts = blog.length
 
   <!-- Hero Section -->
   <section class="relative w-full">
-    <!-- Hero image placeholder: replace the div below with your <Image> when ready -->
-    <div
-      class="relative h-[60vh] min-h-[400px] w-full overflow-hidden"
-      aria-label="Hero image placeholder"
-    >
-      <!-- Placeholder background -->
-      <div
-        class="absolute inset-0"
-        style="background: linear-gradient(135deg, #0e0e0e 0%, #131313 40%, #1a1919 70%, #0e0e0e 100%);"
-      >
-        <!-- Subtle grid overlay -->
-        <div
-          class="absolute inset-0 opacity-10"
-          style="background-image: linear-gradient(rgba(161,250,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(161,250,255,0.2) 1px, transparent 1px); background-size: 48px 48px;"
-        >
-        </div>
-      </div>
-      <!-- Bottom gradient fade -->
-      <div class="hero-gradient pointer-events-none absolute inset-0"></div>
-    </div>
+    <HomeHeroCarousel client:load className="relative" images={heroImages} />
+    <div class="hero-gradient pointer-events-none absolute inset-0"></div>
 
     <!-- Hero text overlay -->
     <div class="absolute inset-0 flex flex-col justify-end px-8 pb-12 md:px-16">
