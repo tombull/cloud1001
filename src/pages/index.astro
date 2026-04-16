@@ -16,6 +16,8 @@ const heroImages = [
   '/static/home_hero/the_astral_eye.webp',
   '/static/home_hero/the_starlight_citadel.webp',
 ].map((src) => ({ src }))
+const currentDate = new Date()
+const systemVersionDate = `${currentDate.getFullYear()}.${String(currentDate.getMonth() + 1).padStart(2, '0')}.${String(currentDate.getDate()).padStart(2, '0')}`
 const totalPosts = blog.length
 ---
 
@@ -28,20 +30,20 @@ const totalPosts = blog.length
     <div class="hero-gradient pointer-events-none absolute inset-0"></div>
 
     <!-- Hero text overlay -->
-    <div class="absolute inset-0 flex flex-col justify-end px-8 pb-12 md:px-16">
-      <div class="text-primary mb-4 text-[10px] tracking-[0.25em] uppercase">
-        ESTABLISHED 2026 &bull; BY TOM BULL
+    <div
+      class="absolute inset-0 flex flex-col justify-end px-8 pb-24 md:px-16 md:pb-32"
+    >
+      <div class="mb-4 flex items-center gap-4">
+        <div class="bg-primary h-[2px] w-12"></div>
+        <span class="font-label text-primary text-sm tracking-[0.2em] uppercase"
+          >System Online // Version {systemVersionDate} // Author: Tom Bull</span
+        >
       </div>
       <h1
-        class="text-glow text-on-surface mb-4 text-5xl leading-none font-black tracking-tighter uppercase md:text-7xl lg:text-8xl"
+        class="text-glow text-on-surface mb-4 text-7xl leading-none font-black tracking-tighter uppercase md:text-8xl"
       >
         {SITE.title.toUpperCase()}
       </h1>
-      <p
-        class="text-on-surface-variant max-w-xl text-sm leading-relaxed md:text-base"
-      >
-        {SITE.description}
-      </p>
     </div>
 
     <!-- Data strip -->
@@ -49,7 +51,7 @@ const totalPosts = blog.length
       <div
         class="text-on-surface-variant flex flex-wrap gap-x-8 gap-y-1 text-[10px] tracking-widest uppercase"
       >
-        <span>CLOUD 1001</span>
+        <span>CLOUD_1001</span>
         <span>/</span>
         <span>TECHNOLOGY &middot; AI &middot; CLOUD</span>
         <span>/</span>
