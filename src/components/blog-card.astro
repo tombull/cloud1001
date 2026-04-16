@@ -1,10 +1,8 @@
 ---
-import AvatarComponent from '@/components/ui/avatar'
 import {
   getCombinedReadingTime,
   getSubpostCount,
   isSubpost,
-  parseAuthors,
 } from '@/lib/data-utils'
 import { formatDate } from '@/lib/utils'
 import { Icon } from 'astro-icon/components'
@@ -19,12 +17,11 @@ interface Props {
 const { entry } = Astro.props
 const formattedDate = formatDate(entry.data.date)
 const readTime = await getCombinedReadingTime(entry.id)
-const authors = await parseAuthors(entry.data.authors ?? [])
 const subpostCount = !isSubpost(entry.id) ? await getSubpostCount(entry.id) : 0
 ---
 
 <div
-  class="group cursor-pointer border border-outline-variant/15 bg-surface transition-colors duration-300 hover:bg-surface-container-low"
+  class="group border-outline-variant/15 bg-surface hover:bg-surface-container-low cursor-pointer border transition-colors duration-300"
 >
   <Link
     href={`/archive/${entry.id}`}
@@ -47,24 +44,8 @@ const subpostCount = !isSubpost(entry.id) ? await getSubpostCount(entry.id) : 0
     <div class="grow">
       <!-- Metadata row -->
       <div
-        class="mb-3 flex flex-wrap items-center gap-x-3 text-[10px] tracking-widest text-tertiary uppercase"
+        class="text-tertiary mb-3 flex flex-wrap items-center gap-x-3 text-[10px] tracking-widest uppercase"
       >
-        {
-          authors.length > 0 &&
-            authors.map((author) => (
-              <div class="flex items-center gap-x-1.5">
-                <AvatarComponent
-                  client:load
-                  src={author.avatar}
-                  alt={author.name}
-                  fallback={author.name[0]}
-                  className="size-4"
-                />
-                <span>{author.name}</span>
-              </div>
-            ))
-        }
-        {authors.length > 0 && <span>/</span>}
         <span>{formattedDate}</span>
         <span>/</span>
         <span>{readTime}</span>
@@ -83,13 +64,13 @@ const subpostCount = !isSubpost(entry.id) ? await getSubpostCount(entry.id) : 0
 
       <!-- Title -->
       <h3
-        class="mb-3 text-xl font-bold leading-tight tracking-tight text-on-surface transition-colors group-hover:text-primary"
+        class="text-on-surface group-hover:text-primary mb-3 text-xl leading-tight font-bold tracking-tight transition-colors"
       >
         {entry.data.title}
       </h3>
 
       <!-- Description -->
-      <p class="mb-4 text-sm leading-relaxed text-on-surface-variant">
+      <p class="text-on-surface-variant mb-4 text-sm leading-relaxed">
         {entry.data.description}
       </p>
 
@@ -98,7 +79,7 @@ const subpostCount = !isSubpost(entry.id) ? await getSubpostCount(entry.id) : 0
         entry.data.tags && (
           <div class="flex flex-wrap gap-2">
             {entry.data.tags.map((tag) => (
-              <span class="bg-primary/10 px-2 py-0.5 text-[10px] tracking-[0.05em] text-on-surface uppercase">
+              <span class="bg-primary/10 text-on-surface px-2 py-0.5 text-[10px] tracking-[0.05em] uppercase">
                 <Icon name="lucide:hash" class="mr-0.5 inline size-2.5" />
                 {tag}
               </span>

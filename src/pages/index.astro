@@ -36,7 +36,9 @@ const totalPosts = blog.length
       <div class="mb-4 flex items-center gap-4">
         <div class="bg-primary h-[2px] w-12"></div>
         <span class="font-label text-primary text-sm tracking-[0.2em] uppercase"
-          >System Online // Version {systemVersionDate} // Author: Tom Bull</span
+          >System Online // Version {systemVersionDate} // Author: {
+            SITE.author
+          }</span
         >
       </div>
       <h1
@@ -74,7 +76,7 @@ const totalPosts = blog.length
       <div class="text-tertiary text-[10px] tracking-[0.1em] uppercase">
         [{totalPosts} ENTRIES]
       </div>
-      <div class="ml-auto flex-shrink-0">
+      <div class="ml-auto shrink-0">
         <Link
           href="/archive"
           class="group text-on-surface-variant hover:text-primary flex items-center gap-2 text-[10px] tracking-[0.1em] uppercase transition-colors"

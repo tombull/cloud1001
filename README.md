@@ -11,7 +11,7 @@ This repository is heavily extended from the fantastic [astro-erudite](https://g
 This project uses a **Split-Stack Deployment Model** to serve two entirely distinct environments from the same codebase. The behavior of the application is modified at build-time using the `DEPLOY_TARGET` environment variable.
 
 1. **Cloudflare (Production)**: The public-facing site is generated as a purely static, zero-JavaScript application (`DEPLOY_TARGET=cloudflare`). The CMS admin interface and backend API routes are completely stripped out during the build process to minimize the attack surface and maximize client performance.
-2. **Docker Node CMS (Internal Preview/Editing)**: An internal containerized deployment provides a Live Visual Editing environment for content authors (`DEPLOY_TARGET=docker`). Built using `bun` and `@astrojs/node` in standalone mode, it serves the TinaCMS backend API alongside the frontend preview.
+2. **Docker Node CMS (Internal Preview/Editing)**: An internal containerized deployment provides a Live Visual Editing environment for content editors (`DEPLOY_TARGET=docker`). Built using `bun` and `@astrojs/node` in standalone mode, it serves the TinaCMS backend API alongside the frontend preview.
 
 ### Authentication & Traefik/Authelia Pipeline
 
@@ -61,6 +61,7 @@ The TinaCMS backend relies on a self-hosted Redis instance leveraging a custom L
 
 5. **Run the full Docker stack locally:**
    This spins up the production-style CMS node app accompanied by its Redis cache.
+
    ```bash
    docker compose up --build
    ```
@@ -83,21 +84,7 @@ Add new blog posts as `.mdx` files in the `src/content/blog/` directory.
 | `order`       | `number`        | Sort order for subposts. Defaults to `0` if not provided. | Optional |
 | `image`       | `image()`       | Should be exactly 1200px &times; 630px.                   | Optional |
 | `tags`        | `string[]`      | Preferably use kebab-case for these.                      | Optional |
-| `authors`     | `string[]`      | Reference the author's MD file in `src/content/authors/`. | Optional |
 | `draft`       | `boolean`       | Defaults to `false` if not provided.                      | Optional |
-
-### Authors
-
-Add author information in `src/content/authors/` as Markdown files. Example: `enscribe.md` can be referenced in a post's `authors: ['enscribe']` array.
-
-| Field      | Type                                       | Requirements                                                       | Required |
-| ---------- | ------------------------------------------ | ------------------------------------------------------------------ | -------- |
-| `name`     | `string`                                   | n/a                                                                | Yes      |
-| `pronouns` | `string`                                   | n/a                                                                | Optional |
-| `avatar`   | `string.url()` or `string.startsWith('/')` | Valid URL/Path. We recommend [Gravatar](https://en.gravatar.com/). | Yes      |
-| `bio`      | `string`                                   | n/a                                                                | Optional |
-| `mail`     | `string`                                   | Valid string.                                                      | Optional |
-| `website`  | `string.url()`                             | Must be a valid URL.                                               | Optional |
 
 ### Projects
 

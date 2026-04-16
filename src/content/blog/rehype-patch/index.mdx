@@ -4,7 +4,6 @@ description: 'Whenever you depend on Node packages with missing maintainers, pat
 date: 2025-03-21
 tags: ['v1.3.0']
 image: './banner.png'
-authors: ['enscribe']
 ---
 
 ## A problem (about dead maintainers)
@@ -16,7 +15,7 @@ I recently found myself caught between two syntax highlighting packages that I a
 The primary issue was that Expressive Code doesn't support inline syntax highlighting, which is non-negotiable for me since I need my inline code snippets to look as good as my code blocks (so I could do stuff like `console.log("Hello, world!".split('').reverse().join('')){:js}`). So I opened a feature request at [expressive-code/expressive-code#250](https://github.com/expressive-code/expressive-code/issues/250) and the maintainer seemed interested, saying they'd get around to it eventually. Implementing this feature is a lot easier said than done though, and I summarized it well in another thread:
 
 > [@jktrn](https://github.com/rehype-pretty/rehype-pretty-code/issues/247#issuecomment-2619869436): [...] expressive-code is already interested in implementing inline code support, but it would be a bit nuanced to add since it has to:
-> 
+>
 > - allow existing plugins to continue working normally with block-level code (without breaking changes),
 > - enable new plugins to explicitly declare support for inline code,
 > - and provide ways for plugins to distinguish between inline and block-level code processing.
@@ -36,11 +35,11 @@ Fast forward a few months, and user [@kelvindecosta](https://github.com/kelvinde
 After I replied that I hadn't figured out a workaround yet, they sent me a brilliantly hacky solution a couple days later:
 
 > [[@kelvindecosta]](https://github.com/rehype-pretty/rehype-pretty-code/issues/247#issuecomment-2619666231): Hey again @jktrn, I have found an unconventional way to achieve this.
-> 
+>
 > If you're using pnpm or bun, you can use their patch functionality to customize the contents of the `node_modules/rehype-pretty-code` package.
-> 
+>
 > I only recently learned about this feature, and it is a good workaround for the time being. Here are the steps:
-> 
+>
 > 1. Run `pnpm patch rehype-pretty-code`. This will instruct you to edit the files in a certain directory.
 > 2. Patch out the `isBlockCode{:js}` function to always return `false{:js}`. This will instruct the plugin to not process any block code elements.
 > 3. Run `pnpm patch-commit <path/to/files>`. This will create a nice patches folder with the right changes.
@@ -52,13 +51,24 @@ This happened to be exactly what I needed! I went into my `node_modules` directo
 ```js title="node_modules/rehype-pretty-code/dist/index.js" startLineNumber=18 ins={9} del={8}
 function isInlineCode(element, parent, bypass = false) {
   if (bypass) {
-    return false;
+    return false
   }
-  return element.tagName === "code" && isElement(parent) && parent.tagName !== "pre" || element.tagName === "inlineCode";
+  return (
+    (element.tagName === 'code' &&
+      isElement(parent) &&
+      parent.tagName !== 'pre') ||
+    element.tagName === 'inlineCode'
+  )
 }
 function isBlockCode(element) {
-  return element.tagName === "pre" && Array.isArray(element.children) && element.children.length === 1 && isElement(element.children[0]) && element.children[0].tagName === "code";
-  return false;
+  return (
+    element.tagName === 'pre' &&
+    Array.isArray(element.children) &&
+    element.children.length === 1 &&
+    isElement(element.children[0]) &&
+    element.children[0].tagName === 'code'
+  )
+  return false
 }
 ```
 
