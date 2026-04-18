@@ -9,7 +9,6 @@ order: 1
 import Callout from '@/components/callout.astro'
 
 The original mobile table of contents was a simple collapsible element that lived within the post content. This created several usability issues:
-
 1. Users had no sense of how much content remained other than implying it based on the length of the browser scrollbar
 2. Once you scrolled past the TOC, you lose the ability to quickly navigate to other sections of the post without scrolling back up to the inline TOC
 3. Mobile users should have the exact same experience as desktop users in terms of navigation, and as of now the desktop experience was better (due to the sticky aside TOC)
@@ -27,18 +26,15 @@ A naive implementation of live scroll highlighting would simply use an `Intersec
 <Callout variant="example">
   Say that we have a post with the following structure:
 
-```markdown
-## Part 1
+  ```markdown
+  ## Part 1
+  [500 lines of content]
 
-[500 lines of content]
+  ## Part 2
+  [500 lines of content]
+  ```
 
-## Part 2
-
-[500 lines of content]
-```
-
-If you were to scroll way past the first heading and was deep into the first section underneath it, the naive implementation would not highlight the first heading because it's no longer in your viewport. This is unintuitive and a poor user experience. In a perfect world, if we were to view 250 lines of Part 1 and 250 lines of Part 2, then we would see both headings highlighted in the TOC and not need to make a decision about which heading to highlight.
-
+  If you were to scroll way past the first heading and was deep into the first section underneath it, the naive implementation would not highlight the first heading because it's no longer in your viewport. This is unintuitive and a poor user experience. In a perfect world, if we were to view 250 lines of Part 1 and 250 lines of Part 2, then we would see both headings highlighted in the TOC and not need to make a decision about which heading to highlight.
 </Callout>
 
 I used to rely on [jakelow/remark-sectionize](https://github.com/jake-low/remark-sectionize), a [remarkjs/remark](https://github.com/remarkjs/remark) plugin that retroactively generates `<section>{:html}` tags based on the headers in the generated HTML. This would have done the following conversion:
@@ -87,17 +83,15 @@ The naming is interesting but I felt like it was the most intuitive to me. Basic
 ```javascript title="src/components/TOCHeader.astro" startLineNumber={123}
 function buildHeadingJurisdictions() {
   headingElements = Array.from(
-    document.querySelectorAll(
-      '.prose h2, .prose h3, .prose h4, .prose h5, .prose h6',
-    ),
+    document.querySelectorAll('.prose h2, .prose h3, .prose h4, .prose h5, .prose h6')
   )
-
+  
   jurisdictions = headingElements.map((heading, index) => {
     const nextHeading = headingElements[index + 1]
     return {
       id: heading.id,
       start: heading.offsetTop,
-      end: nextHeading ? nextHeading.offsetTop : document.body.scrollHeight,
+      end: nextHeading ? nextHeading.offsetTop : document.body.scrollHeight
     }
   })
 }
@@ -118,12 +112,10 @@ One of the more interesting decisions I made was to display all sections as comm
   ## Part 1
   [500 lines of content]
 
-## Part 2
-
-[500 lines of content]
-
-````
-If we saw 250 lines of Part 1 and 250 lines of Part 2, then the text snippet in the mobile TOC would read "Part 1, Part 2".
+  ## Part 2
+  [500 lines of content]
+  ```
+  If we saw 250 lines of Part 1 and 250 lines of Part 2, then the text snippet in the mobile TOC would read "Part 1, Part 2".
 </Callout>
 
 The temptation is to implement a "smart" selection algorithm, perhaps showing the section with the most visible content, or the one closest to the viewport center, or to show the "deepest," most specifically nested section. However, this creates numerous edge cases:
@@ -141,19 +133,19 @@ By showing all visible sections, we give users complete awareness of their posit
 The circular progress indicator provides immediate visual feedback about reading progress without requiring any interaction:
 
 ```javascript title="src/components/TOCHeader.astro" startLineNumber={216}
-function updateProgressCircle() {
-  if (!progressCircleElement) return
-  const scrollableDistance =
-    document.documentElement.scrollHeight - window.innerHeight
-  const scrollProgress =
-    scrollableDistance > 0
-      ? Math.min(Math.max(window.scrollY / scrollableDistance, 0), 1)
-      : 0
-  progressCircleElement.style.strokeDashoffset = (
-    PROGRESS_CIRCLE_CIRCUMFERENCE *
-    (1 - scrollProgress)
-  ).toString()
-}
-````
+  function updateProgressCircle() {
+    if (!progressCircleElement) return
+    const scrollableDistance =
+      document.documentElement.scrollHeight - window.innerHeight
+    const scrollProgress =
+      scrollableDistance > 0
+        ? Math.min(Math.max(window.scrollY / scrollableDistance, 0), 1)
+        : 0
+    progressCircleElement.style.strokeDashoffset = (
+      PROGRESS_CIRCLE_CIRCUMFERENCE *
+      (1 - scrollProgress)
+    ).toString()
+  }
+```
 
 The progress is calculated as a ratio of current scroll position to total scrollable distance, then applied as a stroke-dashoffset to create the filling effect.
