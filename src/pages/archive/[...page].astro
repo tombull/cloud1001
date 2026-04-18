@@ -6,13 +6,23 @@ import PaginationComponent from '@/components/ui/pagination'
 import Layout from '@/layouts/layout.astro'
 import { getAllPosts } from '@/lib/data-utils'
 import { SITE } from '@/consts'
+import type { CollectionEntry } from 'astro:content'
 
 export async function getStaticPaths({ paginate }: { paginate: Function }) {
   const allPosts = await getAllPosts()
   return paginate(allPosts, { pageSize: SITE.postsPerPage })
 }
 
-const { page } = Astro.props
+type ArchivePageProps = {
+  page: {
+    data: CollectionEntry<'blog'>[]
+    total: number
+    lastPage: number
+    currentPage: number
+  }
+}
+
+const { page } = Astro.props as ArchivePageProps
 const posts = page.data
 
 // Group posts by year

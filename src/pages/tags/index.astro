@@ -6,7 +6,9 @@ import { getAllTags } from '@/lib/data-utils'
 import { Icon } from 'astro-icon/components'
 
 const tags = await getAllTags()
-const sortedTags = tags.sort((a, b) => b.count - a.count)
+const sortedTags = [...tags.entries()]
+  .map(([tag, count]) => ({ tag, count }))
+  .sort((a, b) => b.count - a.count)
 ---
 
 <Layout class="px-4 py-12 max-w-3xl md:px-8">
