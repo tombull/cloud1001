@@ -142,8 +142,7 @@ export default function HomeHeroCarousel({
         className,
       )}
     >
-      <div className="absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(14,14,14,0.24)_0%,rgba(14,14,14,0.1)_28%,rgba(14,14,14,0.5)_100%)]" />
-      <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_top_right,rgba(161,250,255,0.18),transparent_38%)]" />
+      <div className="hero-gradient absolute inset-0 z-10"></div>
 
       <div className="h-full w-full" ref={emblaRef}>
         <div className="flex h-full touch-pan-y">

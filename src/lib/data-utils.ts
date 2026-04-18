@@ -115,10 +115,7 @@ export async function getSortedTags(): Promise<
   const tagCounts = await getAllTags()
   return [...tagCounts.entries()]
     .map(([tag, count]) => ({ tag, count }))
-    .sort((a, b) => {
-      const countDiff = b.count - a.count
-      return countDiff !== 0 ? countDiff : a.tag.localeCompare(b.tag)
-    })
+    .sort((a, b) => b.count - a.count)
 }
 
 export function getParentId(subpostId: string): string {

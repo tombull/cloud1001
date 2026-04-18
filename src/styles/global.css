@@ -270,16 +270,22 @@
 
 /* Hero gradient overlay (bottom fade to surface) */
 @utility hero-gradient {
-  background: linear-gradient(to bottom, transparent 60%, var(--surface) 100%);
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    color-mix(in srgb, var(--surface), transparent 50%) 80%,
+    color-mix(in srgb, var(--surface), transparent 20%) 90%,
+    var(--surface) 100%
+  );
 }
 
-/* Data-strip: thin accent bar for metadata */
-@utility data-strip {
-  background-color: color-mix(in srgb, var(--primary) 10%, transparent);
-  border-top: 1px solid
-    color-mix(in srgb, var(--outline-variant) 20%, transparent);
-  border-bottom: 1px solid
-    color-mix(in srgb, var(--outline-variant) 20%, transparent);
+@keyframes data-strip-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 /* Ghost border: ultra-subtle containment border */

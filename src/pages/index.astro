@@ -5,7 +5,7 @@ import Link from '@/components/link.astro'
 import PageHead from '@/components/page-head.astro'
 import { SITE } from '@/consts'
 import Layout from '@/layouts/layout.astro'
-import { getRecentPosts } from '@/lib/data-utils'
+import { getRecentPosts, getSortedTags } from '@/lib/data-utils'
 
 const blog = await getRecentPosts(SITE.featuredPostCount)
 const heroImages = [
@@ -19,6 +19,17 @@ const heroImages = [
 const currentDate = new Date()
 const systemVersionDate = `${currentDate.getFullYear()}.${String(currentDate.getMonth() + 1).padStart(2, '0')}.${String(currentDate.getDate()).padStart(2, '0')}`
 const totalPosts = blog.length
+const sortedTags = await getSortedTags()
+const baseStripTags = sortedTags.map(({ tag }) => tag)
+const minimumTickerTags = 101
+const repeatCount =
+  baseStripTags.length > 0
+    ? Math.ceil(minimumTickerTags / baseStripTags.length)
+    : 1
+const stripTags =
+  baseStripTags.length > 0
+    ? Array.from({ length: repeatCount }, () => baseStripTags).flat()
+    : ['NO TAGS AVAILABLE']
 ---
 
 <Layout fullWidth>
@@ -27,18 +38,18 @@ const totalPosts = blog.length
   <!-- Hero Section -->
   <section class="relative w-full">
     <HomeHeroCarousel client:load className="relative" images={heroImages} />
-    <div class="hero-gradient pointer-events-none absolute inset-0"></div>
+    <div class="pointer-events-none absolute inset-0"></div>
 
     <!-- Hero text overlay -->
     <div
       class="absolute inset-0 flex flex-col justify-end px-8 pb-24 md:px-16 md:pb-32"
     >
       <h1
-        class="text-glow text-on-surface mb-4 text-7xl leading-none font-black tracking-tighter uppercase md:text-8xl"
+        class="text-glow text-on-surface pointer-events-none z-20 mb-4 text-7xl leading-none font-black tracking-tighter uppercase select-none md:text-8xl"
       >
         {SITE.title.toUpperCase()}
       </h1>
-      <div class="mb-4 flex items-center gap-4">
+      <div class="z-20 mb-4 flex items-center gap-4 select-none">
         <div class="bg-primary h-[2px] w-12"></div>
         <span class="font-label text-primary text-sm tracking-[0.2em] uppercase"
           >System Online // Version {systemVersionDate} // Author: {
@@ -49,17 +60,49 @@ const totalPosts = blog.length
     </div>
 
     <!-- Data strip -->
-    <div class="data-strip w-full px-8 py-3 md:px-16">
-      <div
-        class="text-on-surface-variant flex flex-wrap gap-x-8 gap-y-1 text-[10px] tracking-widest uppercase"
-      >
-        <span>CLOUD_1001</span>
-        <span>/</span>
-        <span>TECHNOLOGY &middot; AI &middot; CLOUD</span>
-        <span>/</span>
-        <span
-          >{totalPosts} RECENT TRANSMISSION{totalPosts !== 1 ? 'S' : ''}</span
+    <div
+      class="w-full border-y border-[color-mix(in_srgb,var(--primary)_20%,transparent)] bg-[color-mix(in_srgb,var(--primary)_10%,transparent)] py-3 shadow-[inset_0_10px_20px_-12px_color-mix(in_srgb,var(--primary)_10%,transparent),inset_0_-10px_20px_-12px_color-mix(in_srgb,var(--primary)_10%,transparent)]"
+    >
+      <div class="overflow-hidden whitespace-nowrap" aria-label="Tag ticker">
+        <div
+          class="text-on-surface-variant flex w-max animate-[data-strip-scroll_300s_linear_infinite] text-[10px] tracking-widest select-none"
         >
+          <span class="inline-flex shrink-0 items-center">
+            {
+              stripTags.map((tag) => (
+                <>
+                  <a
+                    href={`/tags/${encodeURIComponent(tag)}`}
+                    class="hover:text-primary uppercase transition-colors duration-200"
+                  >
+                    {tag}
+                  </a>
+                  <span class="inline-block px-[2em]" aria-hidden="true">
+                    &middot;
+                  </span>
+                </>
+              ))
+            }
+          </span>
+          <span class="inline-flex shrink-0 items-center" aria-hidden="true">
+            {
+              stripTags.map((tag) => (
+                <>
+                  <a
+                    href={`/tags/${encodeURIComponent(tag)}`}
+                    class="hover:text-primary uppercase transition-colors duration-200"
+                    tabindex="-1"
+                  >
+                    {tag}
+                  </a>
+                  <span class="inline-block px-[2em]" aria-hidden="true">
+                    &middot;
+                  </span>
+                </>
+              ))
+            }
+          </span>
+        </div>
       </div>
     </div>
   </section>
