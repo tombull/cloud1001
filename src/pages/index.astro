@@ -33,6 +33,11 @@ const totalPosts = blog.length
     <div
       class="absolute inset-0 flex flex-col justify-end px-8 pb-24 md:px-16 md:pb-32"
     >
+      <h1
+        class="text-glow text-on-surface mb-4 text-7xl leading-none font-black tracking-tighter uppercase md:text-8xl"
+      >
+        {SITE.title.toUpperCase()}
+      </h1>
       <div class="mb-4 flex items-center gap-4">
         <div class="bg-primary h-[2px] w-12"></div>
         <span class="font-label text-primary text-sm tracking-[0.2em] uppercase"
@@ -41,11 +46,6 @@ const totalPosts = blog.length
           }</span
         >
       </div>
-      <h1
-        class="text-glow text-on-surface mb-4 text-7xl leading-none font-black tracking-tighter uppercase md:text-8xl"
-      >
-        {SITE.title.toUpperCase()}
-      </h1>
     </div>
 
     <!-- Data strip -->
