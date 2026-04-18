@@ -2,13 +2,12 @@ import type { IconMap, SocialLink, Site } from '@/types'
 
 export const SITE: Site = {
   title: 'Cloud 1001',
-  description:
-    'Cloud 1001 Blog by Tom Bull.',
+  description: 'Cloud 1001 Blog by Tom Bull.',
   href: 'https://cloud1001.com',
   author: 'Tom Bull',
   locale: 'en-GB',
-  featuredPostCount: 2,
-  postsPerPage: 3,
+  featuredPostCount: 5,
+  postsPerPage: 8,
 }
 
 export const NAV_LINKS: SocialLink[] = [
@@ -49,7 +48,6 @@ export const ICON_MAP: IconMap = {
   Website: 'lucide:globe',
   GitHub: 'lucide:github',
   LinkedIn: 'lucide:linkedin',
-  Twitter: 'lucide:twitter',
   Email: 'lucide:mail',
   RSS: 'lucide:rss',
 }
