@@ -1,5 +1,6 @@
 ---
 import HomeHeroCarousel from '@/components/ui/home-hero-carousel'
+import HeroShaderOverlay from '@/components/ui/hero-shader-overlay'
 import Link from '@/components/link.astro'
 import PageHead from '@/components/page-head.astro'
 import { SITE } from '@/consts'
@@ -54,7 +55,7 @@ const stripTags =
   <!-- Hero Section -->
   <section class="relative w-full">
     <HomeHeroCarousel client:load className="relative" images={heroImages} />
-    <div class="pointer-events-none absolute inset-0"></div>
+    <HeroShaderOverlay client:load className="absolute inset-0 z-15" />
 
     <!-- Hero text overlay -->
     <div

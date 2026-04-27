@@ -170,9 +170,7 @@ export default function HomeHeroCarousel({
           <button
             aria-label={`Show hero image ${index + 1}`}
             className={cn(
-              'pointer-events-auto h-1 w-5 border border-white/20 bg-white/18 transition-all duration-300 ease-out',
-              index === selectedIndex &&
-                'border-primary/70 bg-primary shadow-[0_0_18px_rgba(161,250,255,0.35)]',
+              'pointer-events-auto flex h-2 w-5 items-center justify-center',
             )}
             key={image.src}
             onClick={() => {
@@ -180,7 +178,16 @@ export default function HomeHeroCarousel({
               autoplay.current.reset()
             }}
             type="button"
-          />
+          >
+            <span
+              aria-hidden="true"
+              className={cn(
+                'h-1 w-5 border border-white/20 bg-white/18 transition-all duration-300 ease-out',
+                index === selectedIndex &&
+                  'border-primary/70 bg-primary shadow-[0_0_18px_rgba(161,250,255,0.35)]',
+              )}
+            />
+          </button>
         ))}
       </div>
     </div>
