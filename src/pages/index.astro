@@ -4,7 +4,11 @@ import Link from '@/components/link.astro'
 import PageHead from '@/components/page-head.astro'
 import { SITE } from '@/consts'
 import Layout from '@/layouts/layout.astro'
-import { getAllPosts, getCombinedReadingTime, getSortedTags } from '@/lib/data-utils'
+import {
+  getAllPosts,
+  getCombinedReadingTime,
+  getSortedTags,
+} from '@/lib/data-utils'
 import { formatDate } from '@/lib/utils'
 import { Image } from 'astro:assets'
 
@@ -122,12 +126,16 @@ const stripTags =
   <!-- Latest Posts Section -->
   <section class="w-full px-8 py-16 md:px-16 md:py-24">
     <!-- Section header -->
-    <div class="mb-16 flex items-baseline justify-between border-b border-outline-variant/15 pb-4">
+    <div
+      class="border-outline-variant/15 mb-16 flex items-baseline justify-between border-b pb-4"
+    >
       <h2 class="text-on-surface text-2xl font-bold tracking-tight uppercase">
         Latest_Transmissions
       </h2>
       <div class="flex items-center gap-6">
-        <span class="text-on-surface-variant text-xs tracking-[0.1em] uppercase">
+        <span
+          class="text-on-surface-variant text-xs tracking-[0.1em] uppercase"
+        >
           {String(totalPosts).padStart(2, '0')} ENTRIES FOUND
         </span>
         <Link
@@ -135,22 +143,29 @@ const stripTags =
           class="group text-on-surface-variant hover:text-primary flex items-center gap-2 text-[10px] tracking-[0.1em] uppercase transition-colors"
         >
           VIEW ALL
-          <span class="transition-transform group-hover:translate-x-1">&rarr;</span>
+          <span class="transition-transform group-hover:translate-x-1"
+            >&rarr;</span
+          >
         </Link>
       </div>
     </div>
 
     {
       featuredPost ? (
-        <div class="grid grid-cols-1 gap-px border border-outline-variant/15 bg-outline-variant/15 md:grid-cols-12">
-          <article class="bg-surface transition-colors hover:bg-surface-container-low hover:shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--primary)_35%,transparent)] md:col-span-8">
-            <Link href={`/archive/${featuredPost.id}`} class="group block h-full p-8 md:p-12">
+        <div class="border-outline-variant/15 bg-outline-variant/15 grid grid-cols-1 gap-px border md:grid-cols-12">
+          <article class="bg-surface hover:bg-surface-container-low transition-colors hover:shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--primary)_35%,transparent)] md:col-span-8">
+            <Link
+              href={`/archive/${featuredPost.id}`}
+              class="group block h-full p-8 md:p-12"
+            >
               <div class="flex h-full flex-col gap-8 md:flex-row md:gap-12">
                 <div class="flex-1">
                   <div class="text-tertiary mb-6 flex flex-wrap gap-4 text-xs tracking-widest uppercase">
                     <span>{formatDate(featuredPost.data.date)}</span>
                     <span>/</span>
-                    <span>{readTimes.get(featuredPost.id) ?? '1 min read'}</span>
+                    <span>
+                      {readTimes.get(featuredPost.id) ?? '1 min read'}
+                    </span>
                   </div>
                   <h3 class="text-on-surface group-hover:text-primary mb-8 text-4xl leading-[0.95] font-bold tracking-tighter transition-colors md:text-5xl">
                     {featuredPost.data.title}
@@ -158,8 +173,8 @@ const stripTags =
                   <p class="text-on-surface-variant mb-10 max-w-xl text-lg leading-relaxed">
                     {featuredPost.data.description}
                   </p>
-                  {
-                    featuredPost.data.tags && featuredPost.data.tags.length > 0 && (
+                  {featuredPost.data.tags &&
+                    featuredPost.data.tags.length > 0 && (
                       <div class="flex flex-wrap items-center gap-3">
                         {featuredPost.data.tags.slice(0, 3).map((tag) => (
                           <span class="bg-primary/10 text-on-surface px-3 py-1 text-xs tracking-[0.08em] uppercase">
@@ -167,139 +182,133 @@ const stripTags =
                           </span>
                         ))}
                       </div>
-                    )
-                  }
+                    )}
                 </div>
-                <div class="h-64 w-full overflow-hidden border border-outline-variant/20 md:h-auto md:w-64">
-                  {
-                    featuredPost.data.image ? (
-                      <Image
-                        src={featuredPost.data.image}
-                        alt={featuredPost.data.title}
-                        width={800}
-                        height={800}
-                        class="h-full w-full object-cover saturate-50 transition-all duration-500 group-hover:saturate-125"
-                      />
-                    ) : (
-                      <div class="h-full w-full bg-[radial-gradient(circle_at_20%_20%,color-mix(in_srgb,var(--primary)_35%,transparent),transparent_55%),linear-gradient(160deg,color-mix(in_srgb,var(--surface-container-high)_80%,transparent),var(--surface))]" />
-                    )
-                  }
+                <div class="border-outline-variant/20 h-64 w-full overflow-hidden border md:h-auto md:w-64">
+                  {featuredPost.data.image ? (
+                    <Image
+                      src={featuredPost.data.image}
+                      alt={featuredPost.data.title}
+                      width={800}
+                      height={800}
+                      class="h-full w-full object-cover saturate-50 transition-all duration-500 group-hover:saturate-125"
+                    />
+                  ) : (
+                    <div class="h-full w-full bg-[radial-gradient(circle_at_20%_20%,color-mix(in_srgb,var(--primary)_35%,transparent),transparent_55%),linear-gradient(160deg,color-mix(in_srgb,var(--surface-container-high)_80%,transparent),var(--surface))]" />
+                  )}
                 </div>
               </div>
             </Link>
           </article>
 
-          {
-            sidePost && (
-              <article class="border-outline-variant/15 bg-surface border-l transition-colors hover:bg-surface-container-low hover:shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--primary)_35%,transparent)] md:col-span-4">
-                <Link href={`/archive/${sidePost.id}`} class="group block h-full p-8">
-                  <div class="flex h-full flex-col justify-between gap-8">
-                    <div>
-                      <div class="text-on-surface-variant mb-4 flex flex-wrap gap-3 text-[10px] uppercase">
-                        <span>{formatDate(sidePost.data.date)}</span>
-                        <span>/</span>
-                        <span>{readTimes.get(sidePost.id) ?? '1 min read'}</span>
-                      </div>
-                      <h3 class="text-on-surface group-hover:text-primary mb-5 text-2xl leading-tight font-bold tracking-tight transition-colors">
-                        {sidePost.data.title}
-                      </h3>
-                      <p class="text-on-surface-variant mb-6 text-sm leading-relaxed">
-                        {sidePost.data.description}
-                      </p>
-
-                      {
-                        sidePost.data.tags && sidePost.data.tags.length > 0 && (
-                          <div class="flex flex-wrap items-center gap-2">
-                            {sidePost.data.tags.slice(0, 3).map((tag) => (
-                              <span class="bg-primary/10 text-on-surface px-2 py-0.5 text-[10px] tracking-[0.06em] uppercase">
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        )
-                      }
-                    </div>
-
-                    <div class="h-40 w-full overflow-hidden border border-outline-variant/10">
-                      {
-                        sidePost.data.image ? (
-                          <Image
-                            src={sidePost.data.image}
-                            alt={sidePost.data.title}
-                            width={600}
-                            height={320}
-                            class="h-full w-full object-cover saturate-50 transition-all duration-500 group-hover:saturate-125"
-                          />
-                        ) : (
-                          <div class="h-full w-full bg-[linear-gradient(135deg,color-mix(in_srgb,var(--tertiary)_30%,transparent),var(--surface-container-high))]" />
-                        )
-                      }
-                    </div>
-                  </div>
-                </Link>
-              </article>
-            )
-          }
-
-          {
-            smallPosts.map((post, index) => (
-              <article
-                class={`bg-surface transition-colors hover:bg-surface-container-low hover:shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--primary)_35%,transparent)] md:col-span-4 ${
-                  index === 0
-                    ? 'border-t border-outline-variant/15'
-                    : 'border-t border-l border-outline-variant/15'
-                }`}
+          {sidePost && (
+            <article class="border-outline-variant/15 bg-surface hover:bg-surface-container-low border-l transition-colors hover:shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--primary)_35%,transparent)] md:col-span-4">
+              <Link
+                href={`/archive/${sidePost.id}`}
+                class="group block h-full p-8"
               >
-                <Link href={`/archive/${post.id}`} class="group block h-full p-8 md:min-h-[280px]">
-                  <div class="flex h-full flex-col gap-6">
-                    <div class="h-40 w-full shrink-0 overflow-hidden border border-outline-variant/10">
-                      {
-                        post.data.image ? (
-                          <Image
-                            src={post.data.image}
-                            alt={post.data.title}
-                            width={600}
-                            height={320}
-                            class="h-full w-full object-cover saturate-50 transition-all duration-500 group-hover:saturate-125"
-                          />
-                        ) : (
-                          <div class="h-full w-full bg-[linear-gradient(140deg,color-mix(in_srgb,var(--primary)_25%,transparent),var(--surface-container-high))]" />
-                        )
-                      }
+                <div class="flex h-full flex-col justify-between gap-8">
+                  <div>
+                    <div class="text-on-surface-variant mb-4 flex flex-wrap gap-3 text-[10px] uppercase">
+                      <span>{formatDate(sidePost.data.date)}</span>
+                      <span>/</span>
+                      <span>{readTimes.get(sidePost.id) ?? '1 min read'}</span>
                     </div>
+                    <h3 class="text-on-surface group-hover:text-primary mb-5 text-2xl leading-tight font-bold tracking-tight transition-colors">
+                      {sidePost.data.title}
+                    </h3>
+                    <p class="text-on-surface-variant mb-6 text-sm leading-relaxed">
+                      {sidePost.data.description}
+                    </p>
 
-                    <div class="flex grow flex-col">
-                      <div class="text-on-surface-variant mb-2 text-[10px] uppercase">
-                        {formatDate(post.data.date)} // {readTimes.get(post.id) ?? '1 min read'}
+                    {sidePost.data.tags && sidePost.data.tags.length > 0 && (
+                      <div class="flex flex-wrap items-center gap-2">
+                        {sidePost.data.tags.slice(0, 3).map((tag) => (
+                          <span class="bg-primary/10 text-on-surface px-2 py-0.5 text-[10px] tracking-[0.06em] uppercase">
+                            {tag}
+                          </span>
+                        ))}
                       </div>
-                      <h4 class="text-on-surface group-hover:text-primary mb-3 text-xl leading-tight font-bold tracking-tight transition-colors">
-                        {post.data.title}
-                      </h4>
-                      <p class="text-on-surface-variant mb-5 text-sm leading-relaxed">
-                        {post.data.description}
-                      </p>
-
-                      {
-                        post.data.tags && post.data.tags.length > 0 && (
-                          <div class="mt-auto flex flex-wrap items-center gap-2">
-                            {post.data.tags.slice(0, 3).map((tag) => (
-                              <span class="bg-primary/10 text-on-surface px-2 py-0.5 text-[10px] tracking-[0.06em] uppercase">
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        )
-                      }
-                    </div>
+                    )}
                   </div>
-                </Link>
-              </article>
-            ))
-          }
+
+                  <div class="border-outline-variant/10 h-40 w-full overflow-hidden border">
+                    {sidePost.data.image ? (
+                      <Image
+                        src={sidePost.data.image}
+                        alt={sidePost.data.title}
+                        width={600}
+                        height={320}
+                        class="h-full w-full object-cover saturate-50 transition-all duration-500 group-hover:saturate-125"
+                      />
+                    ) : (
+                      <div class="h-full w-full bg-[linear-gradient(135deg,color-mix(in_srgb,var(--tertiary)_30%,transparent),var(--surface-container-high))]" />
+                    )}
+                  </div>
+                </div>
+              </Link>
+            </article>
+          )}
+
+          {smallPosts.map((post, index) => (
+            <article
+              class={`bg-surface hover:bg-surface-container-low transition-colors hover:shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--primary)_35%,transparent)] md:col-span-4 ${
+                index === 0
+                  ? 'border-outline-variant/15 border-t'
+                  : 'border-outline-variant/15 border-t border-l'
+              }`}
+            >
+              <Link
+                href={`/archive/${post.id}`}
+                class="group block h-full p-8 md:min-h-[280px]"
+              >
+                <div class="flex h-full flex-col gap-6">
+                  <div class="border-outline-variant/10 h-40 w-full shrink-0 overflow-hidden border">
+                    {post.data.image ? (
+                      <Image
+                        src={post.data.image}
+                        alt={post.data.title}
+                        width={600}
+                        height={320}
+                        class="h-full w-full object-cover saturate-50 transition-all duration-500 group-hover:saturate-125"
+                      />
+                    ) : (
+                      <div class="h-full w-full bg-[linear-gradient(140deg,color-mix(in_srgb,var(--primary)_25%,transparent),var(--surface-container-high))]" />
+                    )}
+                  </div>
+
+                  <div class="flex grow flex-col">
+                    <div class="text-on-surface-variant mb-2 text-[10px] uppercase">
+                      {formatDate(post.data.date)} //{' '}
+                      {readTimes.get(post.id) ?? '1 min read'}
+                    </div>
+                    <h4 class="text-on-surface group-hover:text-primary mb-3 text-xl leading-tight font-bold tracking-tight transition-colors">
+                      {post.data.title}
+                    </h4>
+                    <p class="text-on-surface-variant mb-5 text-sm leading-relaxed">
+                      {post.data.description}
+                    </p>
+
+                    {post.data.tags && post.data.tags.length > 0 && (
+                      <div class="mt-auto flex flex-wrap items-center gap-2">
+                        {post.data.tags.slice(0, 3).map((tag) => (
+                          <span class="bg-primary/10 text-on-surface px-2 py-0.5 text-[10px] tracking-[0.06em] uppercase">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </Link>
+            </article>
+          ))}
         </div>
       ) : (
         <div class="border-outline-variant/15 text-on-surface-variant border p-12 text-center">
-          <p class="text-sm tracking-[0.05em] uppercase">No transmissions yet.</p>
+          <p class="text-sm tracking-[0.05em] uppercase">
+            No transmissions yet.
+          </p>
         </div>
       )
     }
