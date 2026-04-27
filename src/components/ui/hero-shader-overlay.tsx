@@ -95,7 +95,9 @@ function createProgram(gl: WebGLRenderingContext) {
   return program
 }
 
-export default function HeroShaderOverlay({ className }: HeroShaderOverlayProps) {
+export default function HeroShaderOverlay({
+  className,
+}: HeroShaderOverlayProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -185,7 +187,10 @@ export default function HeroShaderOverlay({ className }: HeroShaderOverlayProps)
   return (
     <canvas
       aria-hidden="true"
-      className={cn('pointer-events-none absolute inset-0 h-full w-full', className)}
+      className={cn(
+        'pointer-events-none absolute inset-0 h-full w-full',
+        className,
+      )}
       ref={canvasRef}
     />
   )
