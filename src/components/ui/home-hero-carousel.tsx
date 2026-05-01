@@ -182,7 +182,7 @@ export default function HomeHeroCarousel({
             <span
               aria-hidden="true"
               className={cn(
-                'h-1 w-5 border border-white/20 bg-white/18 transition-all duration-300 ease-out',
+                'border-on-background/20 bg-secondary/18 h-1 w-5 border transition-all duration-300 ease-out',
                 index === selectedIndex &&
                   'border-primary/70 bg-primary shadow-[0_0_18px_rgba(161,250,255,0.35)]',
               )}

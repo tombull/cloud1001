@@ -164,6 +164,14 @@
 
   --outline: #777575;
   --outline-variant: #494847;
+
+  --hero-shader-sky-color: var(--on-background);
+  --hero-shader-sky-alpha: 0;
+  --hero-shader-cloud-color: var(--surface);
+  --hero-shader-cloud-alpha: 0.2;
+  --hero-shader-light-color: var(--surface);
+  --hero-shader-light-alpha: 0.1;
+  --hero-shader-speed: 1;
 }
 
 /* ── LIGHT THEME: "Inverted Terminal" ── */
