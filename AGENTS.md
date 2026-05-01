@@ -3,9 +3,9 @@
 This application is built on top of the `astro-erudite` Astro template and uses a **Split-Stack Deployment Model** combined with **TinaCMS**.
 
 ## 1. Split-Stack Deployment
-The architecture deploys the same source code into two entirely distinct environments:
-- **Cloudflare (Production):** The public site is generated as a purely static, zero-JavaScript application. The `/admin` CMS and all API routes (`/api/tina/*`) are completely stripped from this build. (Enabled via `DEPLOY_TARGET=cloudflare` where static paths for API routes simply return `[]`).
-- **Docker Node CMS (Internal Preview/Editing):** Hosted internally and built with `bun` atop standard node adapters (`@astrojs/node`). This enables server-side rendering for the Tina node backend (`DEPLOY_TARGET=docker`).
+The architecture deploys the same source code into two entirely distinct configurations controlled by the `ENABLE_CMS` environment variable:
+- **Static Site (`ENABLE_CMS` unset):** The public site is generated as a purely static, zero-JavaScript application. The `/admin` CMS and all API routes (`/api/tina/*`) are completely stripped from this build (API routes prerender to empty `[]`). Currently deployed to Cloudflare.
+- **CMS Mode (`ENABLE_CMS=true`):** Built with `bun` atop `@astrojs/node` in standalone SSR mode. This enables server-side rendering for the TinaCMS backend, admin panel, and API routes. Used for local development and the Docker-hosted internal preview/editing environment.
 
 ## 2. Stateless Authentication Pipeline (Traefik + Authelia)
 The CMS relies strictly on an identity-aware proxy map.

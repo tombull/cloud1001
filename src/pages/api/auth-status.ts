@@ -1,4 +1,4 @@
-export const prerender = process.env.DEPLOY_TARGET === 'docker' ? false : true;
+export const prerender = process.env.ENABLE_CMS === 'true' ? false : true;
 
 export const GET = async ({ request }: any) => {
   let email, user, groupsStr

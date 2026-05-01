@@ -8,10 +8,10 @@ This repository is heavily extended from the fantastic [astro-erudite](https://g
 
 ## Architecture Overview
 
-This project uses a **Split-Stack Deployment Model** to serve two entirely distinct environments from the same codebase. The behavior of the application is modified at build-time using the `DEPLOY_TARGET` environment variable.
+This project uses a **Split-Stack Deployment Model** to serve two entirely distinct configurations from the same codebase. The behavior of the application is controlled at build-time using the `ENABLE_CMS` environment variable.
 
-1. **Cloudflare (Production)**: The public-facing site is generated as a purely static, zero-JavaScript application (`DEPLOY_TARGET=cloudflare`). The CMS admin interface and backend API routes are completely stripped out during the build process to minimize the attack surface and maximize client performance.
-2. **Docker Node CMS (Internal Preview/Editing)**: An internal containerized deployment provides a Live Visual Editing environment for content editors (`DEPLOY_TARGET=docker`). Built using `bun` and `@astrojs/node` in standalone mode, it serves the TinaCMS backend API alongside the frontend preview.
+1. **Static Site** (`ENABLE_CMS` unset): The public-facing site is generated as a purely static, zero-JavaScript application. The CMS admin interface and backend API routes are completely stripped out during the build process to minimize the attack surface and maximize client performance. Currently deployed to Cloudflare.
+2. **CMS Mode** (`ENABLE_CMS=true`): An SSR deployment provides a Live Visual Editing environment for content editors. Built using `bun` and `@astrojs/node` in standalone mode, it serves the TinaCMS backend API alongside the frontend preview. Used for local development and the Docker-hosted internal editing environment.
 
 ### Authentication & Traefik/Authelia Pipeline
 
@@ -70,7 +70,7 @@ The TinaCMS backend relies on a self-hosted Redis instance leveraging a custom L
 
 ## Adding Content
 
-Content can be added visually via the running `/admin` panel (when browsing the Docker-hosted version), or manually via the filesystem.
+Content can be added visually via the running `/admin` panel (when running in CMS mode), or manually via the filesystem.
 
 ### Blog Posts
 

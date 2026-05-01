@@ -20,12 +20,17 @@ import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 
 import tailwindcss from '@tailwindcss/vite'
 
-const isDocker = process.env.DEPLOY_TARGET === 'docker'
+const cmsEnabled = process.env.ENABLE_CMS === 'true'
 
 export default defineConfig({
-  output: isDocker ? 'server' : 'static',
-  adapter: isDocker ? node({ mode: 'standalone' }) : undefined,
+  output: cmsEnabled ? 'server' : 'static',
+  adapter: cmsEnabled ? node({ mode: 'standalone' }) : undefined,
   site: 'https://cloud1001.com',
+  ...(cmsEnabled && {
+    redirects: {
+      '/admin': '/admin/index.html',
+    },
+  }),
   integrations: [mdx(), react(), sitemap(), icon()],
   vite: {
     plugins: [tailwindcss()],

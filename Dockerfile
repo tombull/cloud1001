@@ -9,7 +9,7 @@ RUN bun install
 COPY . .
 
 # Build the Astro Node Server
-RUN DEPLOY_TARGET=docker bun run build
+RUN ENABLE_CMS=true bun run build
 
 FROM oven/bun:1.3.11 AS runner
 WORKDIR /app

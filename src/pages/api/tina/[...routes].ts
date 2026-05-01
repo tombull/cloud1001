@@ -44,7 +44,7 @@ const tinaHandler = TinaNodeBackend({
   databaseClient: databaseClient as any,
 })
 
-export const prerender = process.env.DEPLOY_TARGET === 'docker' ? false : true;
+export const prerender = process.env.ENABLE_CMS === 'true' ? false : true;
 
 export const getStaticPaths = () => {
   return []
