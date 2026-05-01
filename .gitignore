@@ -9,6 +9,5 @@ pnpm-debug.log*
 .env.production
 .DS_Store
 .idea/
-teaser.pptx
-~$teaser.pptxtina/__generated__/
+tina/__generated__/
 public/admin/
