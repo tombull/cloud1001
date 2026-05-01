@@ -6,24 +6,33 @@ import PaginationComponent from '@/components/ui/pagination'
 import Layout from '@/layouts/layout.astro'
 import { getAllPosts } from '@/lib/data-utils'
 import { SITE } from '@/consts'
-import type { CollectionEntry } from 'astro:content'
 
-export async function getStaticPaths({ paginate }: { paginate: Function }) {
+export async function getStaticPaths() {
   const allPosts = await getAllPosts()
-  return paginate(allPosts, { pageSize: SITE.postsPerPage })
+  const totalPages = Math.ceil(allPosts.length / SITE.postsPerPage)
+  // Only generate pages 2+, page 1 is handled by /archive/index.astro
+  return Array.from({ length: totalPages - 1 }, (_, i) => ({
+    params: { page: String(i + 2) },
+  }))
 }
 
-type ArchivePageProps = {
-  page: {
-    data: CollectionEntry<'blog'>[]
-    total: number
-    lastPage: number
-    currentPage: number
-  }
+const pageNum = parseInt(Astro.params.page)
+
+// Redirect page 1 to /archive/
+if (isNaN(pageNum) || pageNum < 2) {
+  return Astro.redirect('/archive/')
 }
 
-const { page } = Astro.props as ArchivePageProps
-const posts = page.data
+const allPosts = await getAllPosts()
+const totalPages = Math.ceil(allPosts.length / SITE.postsPerPage)
+
+// Redirect out-of-range pages to last valid page
+if (pageNum > totalPages) {
+  return Astro.redirect(totalPages > 1 ? `/archive/page/${totalPages}` : '/archive/')
+}
+
+const start = (pageNum - 1) * SITE.postsPerPage
+const posts = allPosts.slice(start, start + SITE.postsPerPage)
 
 // Group posts by year
 const postsByYear = posts.reduce(
@@ -42,7 +51,7 @@ const years = Object.keys(postsByYear)
 ---
 
 <Layout class="max-w-3xl px-4 py-12 md:px-8">
-  <PageHead slot="head" title="Archive" />
+  <PageHead slot="head" title={`Archive - Page ${pageNum}`} />
 
   <div class="flex flex-col gap-y-8">
     <!-- Page header -->
@@ -58,8 +67,8 @@ const years = Object.keys(postsByYear)
         >
           Archive
         </h1>
-        <span class="text-tertiary text-[10px] tracking-[0.1em] uppercase">
-          [{page.total} ENTRIES]
+        <span class="text-tertiary text-[10px] tracking-[0.25em] uppercase">
+          [{allPosts.length} ENTRIES]
         </span>
       </div>
     </div>
@@ -95,12 +104,13 @@ const years = Object.keys(postsByYear)
 
     <!-- Pagination -->
     {
-      page.lastPage > 1 && (
+      totalPages > 1 && (
         <PaginationComponent
           client:load
-          currentPage={page.currentPage}
-          totalPages={page.lastPage}
-          baseUrl="/archive/"
+          currentPage={pageNum}
+          totalPages={totalPages}
+          baseUrl="/archive/page/"
+          page1Url="/archive/"
         />
       )
     }

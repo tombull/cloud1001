@@ -14,6 +14,7 @@ import {
   getCombinedReadingTime,
   getParentId,
   getParentPost,
+  getPostById,
   getPostReadingTime,
   getSubpostCount,
   getTOCSections,
@@ -33,8 +34,10 @@ export async function getStaticPaths() {
   }))
 }
 
-const post = Astro.props
-const currentPostId = Astro.params.id
+const post = Astro.props?.data ? Astro.props : await getPostById(Astro.params.id!)
+if (!post) return Astro.redirect('/404')
+
+const currentPostId = Astro.params.id!
 const { Content, headings } = await render(post)
 
 const isCurrentSubpost = isSubpost(currentPostId)

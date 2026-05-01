@@ -129,11 +129,12 @@ const PaginationComponent: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   baseUrl,
+  page1Url,
 }) => {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1)
 
   const getPageUrl = (page: number) => {
-    if (page === 1) return baseUrl
+    if (page === 1) return page1Url || baseUrl
     return `${baseUrl}${page}`
   }
 
@@ -181,6 +182,7 @@ interface PaginationProps {
   currentPage: number
   totalPages: number
   baseUrl: string
+  page1Url?: string
 }
 
 export default PaginationComponent

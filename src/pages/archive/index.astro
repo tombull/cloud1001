@@ -1,0 +1,95 @@
+---
+import BlogCard from '@/components/blog-card.astro'
+import Breadcrumbs from '@/components/breadcrumbs.astro'
+import PageHead from '@/components/page-head.astro'
+import PaginationComponent from '@/components/ui/pagination'
+import Layout from '@/layouts/layout.astro'
+import { getAllPosts } from '@/lib/data-utils'
+import { SITE } from '@/consts'
+
+const allPosts = await getAllPosts()
+const totalPages = Math.ceil(allPosts.length / SITE.postsPerPage)
+const posts = allPosts.slice(0, SITE.postsPerPage)
+
+// Group posts by year
+const postsByYear = posts.reduce(
+  (acc: Record<number, typeof posts>, post: (typeof posts)[number]) => {
+    const year = new Date(post.data.date).getFullYear()
+    if (!acc[year]) acc[year] = []
+    acc[year].push(post)
+    return acc
+  },
+  {} as Record<number, typeof posts>,
+)
+
+const years = Object.keys(postsByYear)
+  .map(Number)
+  .sort((a, b) => b - a)
+---
+
+<Layout class="max-w-3xl px-4 py-12 md:px-8">
+  <PageHead slot="head" title="Archive" />
+
+  <div class="flex flex-col gap-y-8">
+    <!-- Page header -->
+    <div>
+      <Breadcrumbs
+        items={[
+          { href: '/archive', label: 'Archive', icon: 'lucide:library-big' },
+        ]}
+      />
+      <div class="mt-6 flex items-baseline gap-4">
+        <h1
+          class="text-on-surface text-3xl font-black tracking-tighter uppercase"
+        >
+          Archive
+        </h1>
+        <span class="text-tertiary text-[10px] tracking-[0.25em] uppercase">
+          [{allPosts.length} ENTRIES]
+        </span>
+      </div>
+    </div>
+
+    <!-- Posts by year -->
+    <div class="flex flex-col gap-y-10">
+      {
+        years.map((year) => (
+          <section>
+            <div class="mb-4 flex items-center gap-4">
+              <span class="text-on-surface-variant text-[10px] font-bold tracking-[0.25em] uppercase">
+                {year}
+              </span>
+              <div
+                class="h-px flex-1"
+                style="background: color-mix(in srgb, var(--outline-variant) 15%, transparent);"
+              />
+              <span class="text-tertiary text-[10px] tracking-[0.1em] uppercase">
+                [{postsByYear[year].length}]
+              </span>
+            </div>
+            <ul class="flex flex-col gap-y-4">
+              {postsByYear[year].map((post: (typeof posts)[number]) => (
+                <li>
+                  <BlogCard entry={post} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+
+    <!-- Pagination -->
+    {
+      totalPages > 1 && (
+        <PaginationComponent
+          client:load
+          currentPage={1}
+          totalPages={totalPages}
+          baseUrl="/archive/page/"
+          page1Url="/archive/"
+        />
+      )
+    }
+  </div>
+</Layout>

@@ -24,7 +24,9 @@ export async function getStaticPaths() {
   )
 }
 
-const { tag, posts } = Astro.props
+const tag = Astro.props?.tag || Astro.params.id!
+const posts = Astro.props?.posts || await getPostsByTag(tag)
+if (!posts.length) return Astro.redirect('/404')
 ---
 
 <Layout class="px-4 py-12 max-w-3xl md:px-8">
