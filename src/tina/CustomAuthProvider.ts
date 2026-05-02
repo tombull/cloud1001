@@ -9,7 +9,7 @@ export class CustomAuthProvider extends AbstractAuthProvider {
    * Called to initiate the login process. Since Authelia acts as a reverse proxy, 
    * we simply redirect the user to the root or a dedicated login path.
    */
-  async authenticate(props?: any): Promise<any> {
+  async authenticate(_props?: any): Promise<any> {
     // Usually handled by Traefik natively, but fallback here:
     window.location.href = '/' 
   }
@@ -17,7 +17,7 @@ export class CustomAuthProvider extends AbstractAuthProvider {
   /**
    * Called by Tina to determine if the currently logged-in user is authorized to edit.
    */
-  async authorize(context?: any): Promise<any> {
+  async authorize(_context?: any): Promise<any> {
     try {
       const res = await fetch('/api/auth-status')
       if (res.ok) {

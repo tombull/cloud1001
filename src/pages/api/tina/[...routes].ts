@@ -7,7 +7,7 @@ const tinaHandler = TinaNodeBackend({
   authProvider: isLocal
     ? (LocalBackendAuthProvider as any)()
     : {
-        isAuthorized: async (req: any, res: any) => {
+        isAuthorized: async (req: any, _res: any) => {
           let email, user, groupsStr
 
           if (req?.headers?.get) {
