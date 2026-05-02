@@ -9,5 +9,5 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   },
-  "exclude": ["tests"]
+  "exclude": ["tests", "dist", "tina/__generated__"]
 }
